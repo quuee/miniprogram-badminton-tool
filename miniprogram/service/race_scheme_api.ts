@@ -10,10 +10,10 @@ export default class raceSchemeApi {
    * @description: 获取比赛方案
    * @return {*}
    */
-  static getRaceSchemeList = (raceType: number): Promise<MyAwesomeData<Array<RaceScheme>>> => {
+  static getRaceSchemeList = (): Promise<MyAwesomeData<Array<RaceScheme>>> => {
     const token = wx.getStorageSync("localToken")
     return httpRequest.get<Array<RaceScheme>>(
-      baseUrl + `/raceScheme/list/${raceType}`,
+      baseUrl + `/raceScheme/list`,
       {},
       { header: { ["Authorization"]: token } }
     )

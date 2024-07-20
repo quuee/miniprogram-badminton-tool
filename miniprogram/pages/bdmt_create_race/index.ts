@@ -5,17 +5,33 @@ import { RaceScheme, RaceFormData, RaceInfo, MyAwesomeData } from '../../model';
 import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 
 
+import { raceSchemeStore } from '../../store/raceSchemeStore'
+import { BehaviorWithStore } from 'mobx-miniprogram-bindings';
+const raceSchemeStoreBehavior = BehaviorWithStore({
+  storeBindings: [
+    {
+      store: raceSchemeStore,
+      fields: { raceSchemeList: "raceSchemeList" },
+      actions: { setRaceSchemeList: "setRaceSchemeList",getRaceSchemeListByMainType:"getRaceSchemeListByMainType" }
+    },
 
+  ],
+  pageLifetimes: {
+    show: function () {
+      console.log("raceBattleBehaviorStore pageLifetimes show")
+    }
+  }
+})
 Page({
-
+  behaviors: [raceSchemeStoreBehavior],
   /**
    * 页面的初始数据
    */
   data: {
-    raceSchemeList: [
-      <RaceScheme>{ schemeId: 1, raceScheme: "八人转/超八转", raceMainType: 1, simpleDesc: "", detailDesc: "" },
-      <RaceScheme>{ schemeId: 2, raceScheme: "混双转", raceMainType: 1, simpleDesc: "", detailDesc: "" },
-    ],
+    // raceSchemeList: [
+    //   <RaceScheme>{ schemeId: 1, raceScheme: "八人转/超八转", raceMainType: 1, simpleDesc: "", detailDesc: "" },
+    //   <RaceScheme>{ schemeId: 2, raceScheme: "混双转", raceMainType: 1, simpleDesc: "", detailDesc: "" },
+    // ],
     raceSchemeVOList: [] as Array<string>,
     raceSchemeIndex: 0,
     genderList: ["不限", "男", "女"],
@@ -78,7 +94,8 @@ Page({
     // console.log("/pages/bdmt_create_race/index?formData onload:", formData)
     console.log("options.formData", formData)
 
-    let tempList: string[] = this.data.raceSchemeList.map((t) => t.raceScheme);
+    const filterSchemeArr = raceSchemeStore.getRaceSchemeListByMainType(formData.raceMainType);
+    let tempList: string[] = filterSchemeArr.map((t) => t.raceScheme);
 
     if (formData.raceId != undefined) {
       let raceBOXIndex = 0
@@ -86,11 +103,10 @@ Page({
         case 1: raceBOXIndex = 0; break
         case 3: raceBOXIndex = 1; break;
         case 5: raceBOXIndex = 2; break;
-        
       }
       this.setData({
         formData: formData,
-        raceSchemeIndex: this.data.raceSchemeList.findIndex((item) => item.schemeId == formData.schemeId),
+        raceSchemeIndex: filterSchemeArr.findIndex((item) => item.schemeId == formData.schemeId),
         genderIndex: this.data.genderList.indexOf(formData.genderLimit),
         applicatsIndex: this.data.applicatsList.indexOf(formData.applicats),
         raceBOIndex: raceBOXIndex,
@@ -181,7 +197,7 @@ Page({
       raceId: this.data.formData.raceId,
       raceTitle: this.data.formData.raceTitle,
       raceMainType: this.data.formData.raceMainType,
-      schemeId: this.data.raceSchemeList[this.data.raceSchemeIndex].schemeId,
+      schemeId: raceSchemeStore.getRaceSchemeListByMainType(this.data.formData.raceMainType)[this.data.raceSchemeIndex].schemeId,
       genderLimit: this.data.genderList[this.data.genderIndex],
       applicats: this.data.applicatsList[this.data.applicatsIndex],
       raceBOX: raceBOX,

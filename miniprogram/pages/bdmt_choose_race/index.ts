@@ -1,6 +1,6 @@
 // pages/bdmt_choose_race/index.ts
 import { ComponentWithStore } from 'mobx-miniprogram-bindings'
-import { RaceMainType } from '../../model'
+import { RaceMainType, RaceScheme } from '../../model'
 import $api from '../../service/index'
 import { raceSchemeStore } from '../../store/raceSchemeStore'
 
@@ -21,6 +21,7 @@ ComponentWithStore({
       // { raceMainTypeName: "对抗", raceMainType: 3 },
       // { raceMainTypeName: "团体", raceMainType: 4 },
     ] as Array<RaceMainType>,
+    tempSchemeList:[] as RaceScheme[]
   },
   methods: {
     /**
@@ -28,7 +29,7 @@ ComponentWithStore({
        */
     onLoad() {
       let f1 = $api.raceSchemeApi.getMainTypeList()
-      let f2 = $api.raceSchemeApi.getRaceSchemeList(1)
+      let f2 = $api.raceSchemeApi.getRaceSchemeList()
 
       Promise.all([f1, f2]).then((res) => {
         console.log(res)
@@ -40,6 +41,9 @@ ComponentWithStore({
         }
         if (res[1].code == 0) {
           raceSchemeStore.setRaceSchemeList(res[1].data)
+          this.setData({
+            tempSchemeList : raceSchemeStore.getRaceSchemeListByMainType(1)
+          })
         }
       })
 
@@ -58,17 +62,11 @@ ComponentWithStore({
     },
 
     onChange(event: WechatMiniprogram.TouchEvent) {
-
       const { index } = event.detail;
       const currentTab = this.data.raceMainTypeTabList[index];
-      $api.raceSchemeApi.getRaceSchemeList(currentTab.raceMainType).then(
-        (res) => {
-          // console.log(res)
-          if (res.code === 0) {
-            raceSchemeStore.setRaceSchemeList(res.data)
-          }
-        }
-      )
+      this.setData({
+        tempSchemeList : raceSchemeStore.getRaceSchemeListByMainType(currentTab.raceMainType)
+      })
     },
   }
 
