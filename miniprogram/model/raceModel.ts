@@ -75,8 +75,8 @@ type RaceFormData = {
   schemeId: number;
   genderLimit: string;
   applicats: number;
-  raceBOX: string | number;
-  raceScoreMode: string | number;
+  raceBOX: number;
+  raceScoreMode: number;
   raceCalender: string;
   raceTime: string;
   raceAddress: string;

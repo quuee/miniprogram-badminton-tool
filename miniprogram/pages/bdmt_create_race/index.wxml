@@ -1,8 +1,9 @@
 <!--pages/bdmt_create_race/index.wxml-->
-
+<!-- <wxs module="Trans" src="/utils/state_trans.wxs"></wxs> -->
+<van-toast id="van-toast" />
 <view>
   <van-cell-group>
-    <van-field label="比赛" model:raceTitle="{{ formData.raceTitle }}" placeholder="请输入比赛名称" bind:blur="onRaceTitleBlur" />
+    <van-field label="比赛" value="{{ formData.raceTitle }}" placeholder="请输入比赛名称" bind:blur="onRaceTitleBlur" />
   </van-cell-group>
 
   <van-cell-group>
@@ -39,13 +40,13 @@
       <van-picker show-toolbar title="请选择时间" columns="{{ raceTimeArr }}" bind:cancel="onClosePopup" bind:confirm="onTimeConfirm" />
     </van-popup>
 
-    <van-field model:raceAddress="{{ formData.raceAddress }}" clearable label="地点" icon="location" placeholder="请输入地点" bind:click-icon="clickLocationIcon" bind:blur="onAddressBlur" />
+    <van-field value="{{ formData.raceAddress }}" clearable label="地点" icon="location" placeholder="请输入地点" bind:click-icon="clickLocationIcon" bind:blur="onAddressBlur" />
   </van-cell-group>
   <van-cell-group title="补充">
-    <van-field model:addContext="{{ formData.addContext }}" clearable type="textarea" autosize placeholder="请输入补充说明" border="{{ true }}" bind:blur="onAddContextBlur" />
+    <van-field value="{{ formData.addContext }}" clearable type="textarea" autosize placeholder="请输入补充说明" border="{{ true }}" bind:blur="onAddContextBlur" />
   </van-cell-group>
   <view class="bottom-box flex-row j_c">
-    <van-button type="default">清空</van-button>
+    <van-button type="default" bind:tap="clickReset">清空</van-button>
     <van-button type="primary" bind:tap="clickCreateRace">确定</van-button>
     <van-button type="default">保存</van-button>
   </view>

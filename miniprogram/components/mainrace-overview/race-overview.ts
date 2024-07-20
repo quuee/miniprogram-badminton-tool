@@ -6,6 +6,7 @@ import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 import { raceStore, raceStoreBehavior } from '../../store/raceStore'
 import { MyAwesomeData, RaceFormData, RaceInfo } from '../../model'
 import { getDoublePlayerSession, calcFieldNum } from "../../utils/race_util"
+import { formatDate, formatDateTime } from '../../utils/datetime_util';
 
 Component({
   behaviors: [raceStoreBehavior],
@@ -131,8 +132,16 @@ Component({
         }
       })
     },
-    clickDeleteRace() {
-      Toast.fail("功能等待实现")
+    async clickDeleteRace() {
+      const res: MyAwesomeData<any> = await $api.raceApi.cancleRace(this.data.raceId)
+      if(res.code==0){
+        wx.reLaunch({
+          url:"/pages/bdmt_home/index"
+        })
+      }else{
+        Toast.fail(res.msg)
+      }
+      
     },
     onScroll(event: WechatMiniprogram.TouchEvent) {
       console.log(event.detail.scrollTop)
@@ -157,15 +166,37 @@ Component({
       // 在onload方法里提取二维码参数 const q = decodeURIComponent(query.q)
     },
     gotoEditRace() {
+      let genderLimit;
+      switch (raceStore.raceInfo.genderLimit) {
+        default: genderLimit = "不限"; break;
+        case 1: genderLimit = "男"; break;
+        case 2: genderLimit = "女"; break;
+      }
+      let date = new Date(raceStore.raceInfo.raceDateTime)
+      const dateStr = formatDate(date)
+      const timeStr = formatDateTime(date)
       let formData = <RaceFormData>{
         raceId: this.data.raceId,
         raceTitle: raceStore.raceInfo.raceTitle,
-        raceMainType: raceStore.raceInfo.raceMainType
+        raceMainType: raceStore.raceInfo.raceMainType,
+        schemeId: raceStore.raceInfo.schemeId,
+        genderLimit: genderLimit,
+        applicats: raceStore.raceInfo.predictApplyNum,
+        raceBOX: raceStore.raceInfo.raceBOX,
+        raceScoreMode: raceStore.raceInfo.raceScoreMode,
+        raceCalender: dateStr,
+        raceTime: timeStr,
+        raceAddress: raceStore.raceInfo.address,
+        addContext: raceStore.raceInfo.addContext
       };
-      const form = JSON.stringify(formData)
+      console.log("JSON.stringify(formData)", JSON.stringify(formData))
+      const form = encodeURIComponent(JSON.stringify(formData))
+
       wx.navigateTo({
-        url:"/pages/bdmt_create_race/index?formData="+form
+        url: "/pages/bdmt_create_race/index?formData=" + form
       })
-    }
+    },
+
+
   }
 })

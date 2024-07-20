@@ -25,7 +25,7 @@ Page({
     raceBOList: [
       {
         values: ["一局定胜负", "三局两胜", "五局三胜"],
-        defaultIndex: 0 
+        defaultIndex: 0
       },
       {
         values: [11, 15, 21],
@@ -36,7 +36,7 @@ Page({
     raceScoreModeIndex: 2, //默认已选中
     raceTimeArr: [
       {
-        values: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+        values: ["6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"],
         defaultIndex: 8
       },
       {
@@ -54,8 +54,8 @@ Page({
       schemeId: 0,
       genderLimit: "",
       applicats: 8,
-      raceBOX: "",
-      raceScoreMode: "",
+      raceBOX: 1,
+      raceScoreMode: 21,
       raceCalender: "",
       raceTime: "",
       raceAddress: "",
@@ -74,17 +74,39 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options: any) {
-    const formData = JSON.parse(options.formData)
-    console.log("onload:",formData)
-    this.setData({
-      formData: formData
-    })
-
+    const formData = JSON.parse(decodeURIComponent(options.formData))
+    // console.log("/pages/bdmt_create_race/index?formData onload:", formData)
+    console.log("options.formData", formData)
 
     let tempList: string[] = this.data.raceSchemeList.map((t) => t.raceScheme);
-    this.setData({
-      raceSchemeVOList: [...tempList]
-    })
+
+    if (formData.raceId != undefined) {
+      let raceBOXIndex = 0
+      switch (formData.raceBOX) {
+        case 1: raceBOXIndex = 0; break
+        case 3: raceBOXIndex = 1; break;
+        case 5: raceBOXIndex = 2; break;
+        
+      }
+      this.setData({
+        formData: formData,
+        raceSchemeIndex: this.data.raceSchemeList.findIndex((item) => item.schemeId == formData.schemeId),
+        genderIndex: this.data.genderList.indexOf(formData.genderLimit),
+        applicatsIndex: this.data.applicatsList.indexOf(formData.applicats),
+        raceBOIndex: raceBOXIndex,
+        raceScoreModeIndex: (this.data.raceBOList[1].values as number[]).indexOf(formData.raceScoreMode),
+        hourIndex: (this.data.raceTimeArr[0].values as string[]).indexOf(formData.raceTime.split(":")[0]),
+        minuteIndex: (this.data.raceTimeArr[1].values as string[]).indexOf(formData.raceTime.split(":")[1]),
+
+        raceSchemeVOList: [...tempList]
+      })
+    } else {
+      this.setData({
+        formData: formData,
+        raceSchemeVOList: [...tempList]
+      })
+    }
+    console.log("this.data.formData",this.data.formData)
   },
 
   /**
@@ -148,31 +170,48 @@ Page({
     })
   },
   async clickCreateRace() {
+    let raceBOX: number;
+    switch (this.data.raceBOList[0].values[this.data.raceBOIndex]) {
+      default: raceBOX = 1; break;
+      case "三局两胜": raceBOX = 3; break;
+      case "五局三胜": raceBOX = 5; break;
+    }
     // TODO 必填参数校验
     let formData: RaceFormData = {
+      raceId: this.data.formData.raceId,
       raceTitle: this.data.formData.raceTitle,
       raceMainType: this.data.formData.raceMainType,
       schemeId: this.data.raceSchemeList[this.data.raceSchemeIndex].schemeId,
       genderLimit: this.data.genderList[this.data.genderIndex],
       applicats: this.data.applicatsList[this.data.applicatsIndex],
-      raceBOX: this.data.raceBOList[0].values[this.data.raceBOIndex],
-      raceScoreMode: this.data.raceBOList[1].values[this.data.raceScoreModeIndex],
+      raceBOX: raceBOX,
+      raceScoreMode: (this.data.raceBOList[1].values as number[])[this.data.raceScoreModeIndex],
       raceCalender: this.data.formData.raceCalender,
       raceTime: this.data.raceTimeArr[0].values[this.data.hourIndex] + ":" + this.data.raceTimeArr[1].values[this.data.minuteIndex],
       raceAddress: this.data.formData.raceAddress,
       addContext: this.data.formData.addContext
     }
+    console.log("formatData",formData)
     if (formData.raceTitle == "") {
       Toast.fail('缺少比赛名称');
       return
     }
     // console.log(formData)
-    const res: MyAwesomeData<RaceInfo> = await $api.raceApi.createRace(formData)
-    console.log(res.data)
+    let res: MyAwesomeData<RaceInfo>;
+    if (formData.raceId != undefined) {
+      // update
+      res = await $api.raceApi.editRace(formData)
+      console.log("editRace",res.data)
+    } else {
+      res = await $api.raceApi.createRace(formData)
+      console.log("createRace",res.data)
+    }
     if (res.code == 0) {
       wx.reLaunch({
         url: `/pages/bdmt_main_race/index?raceId=${res.data.raceId}`
       })
+    } else {
+      Toast.fail(res.msg);
     }
 
   },
@@ -233,8 +272,12 @@ Page({
     })
   },
   onAddContextBlur(event: WechatMiniprogram.TouchEvent) {
+    // 失去焦点时触发 有时候直接点确定，不会触发该事件
     this.setData({
       "formData.addContext": event.detail.value
     })
+  },
+  clickReset() {
+
   }
 })

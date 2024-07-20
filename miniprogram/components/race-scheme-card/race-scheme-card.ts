@@ -28,7 +28,7 @@ Component({
       let formData = {
         raceMainType : raceMainType
       }
-      const formDataStr = JSON.stringify(formData)
+      const formDataStr = encodeURIComponent(JSON.stringify(formData))
       wx.navigateTo(
         { url: `/pages/bdmt_create_race/index?formData=${formDataStr}` }
       )
