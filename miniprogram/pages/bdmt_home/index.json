@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index",
+    "race-info-card":"/components/race-info-card/race-info-car"
+  },
+  "navigationBarTitleText": "羽毛球助手",
+  "navigationBarBackgroundColor":"#fff",
+  "navigationBarTextStyle":"black"
+}

@@ -1,0 +1,79 @@
+<!--pages/bdmt_race_battle/index.wxml-->
+<view class="battle-box flex-column">
+
+  <view class="avatar-wrap flex-row">
+    <view>
+      <avatar-circle avatarUrl="{{battleModel.player1.avatarUrl}}" />
+      <text>{{battleModel.player1.nickName}}</text>
+    </view>
+
+    <block wx:if="{{battleModel.player2}}">
+      <view>
+        <avatar-circle avatarUrl="{{battleModel.player2.avatarUrl}}" />
+        <text>{{battleModel.player2.nickName}}</text>
+      </view>
+
+    </block>
+
+    <text>VS</text>
+
+    <view>
+      <avatar-circle avatarUrl="{{battleModel.player3.avatarUrl}}" />
+      <text>{{battleModel.player3.nickName}}</text>
+    </view>
+    <block wx:if="{{battleModel.player4}}">
+      <view>
+        <avatar-circle avatarUrl="{{battleModel.player4.avatarUrl}}" />
+        <text>{{battleModel.player4.nickName}}</text>
+      </view>
+    </block>
+  </view>
+
+  <view class="score-wrap flex-row">
+    <text>第一局</text>
+    <text>{{battleModel.firstPartnerScore}}</text>
+    <text>{{battleModel.secondPartnerScore}}</text>
+    <image src="/assets/icon/edit.png" class="edit-icon" mode="aspectFill" />
+  </view>
+</view>
+
+<view class="score-edit-box">
+
+  <view class="flex-row j_sc">
+    <text>第一局</text>
+    <view>
+      裁判:
+      <avatar-circle avatarUrl="{{battleModel.trailer.avatarUrl}}" />
+    </view>
+  </view>
+
+  <view class="score-selector-box">
+    <picker-view indicator-style="height: 50px;" style="width: 100%; height: 200px;"
+    value="{{scoreIndexArr}}" bindchange="onRecordPickerChange">
+      <view class="flex-row j_sc top-button">
+        <van-icon size="20px" name="plus" bind:tap="tapScorePlus" />
+        <van-icon size="20px" name="plus" bind:tap="tapScorePlus"/>
+      </view>
+      <picker-view-column>
+        <view wx:for="{{scoreArr}}" style="line-height: 50px; text-align: center;">{{item}}</view>
+      </picker-view-column>
+      <picker-view-column>
+        <view wx:for="{{scoreArr}}" style="line-height: 50px; text-align: center;">{{item}}</view>
+      </picker-view-column>
+      <view class="flex-row j_sc bottom-button">
+        <van-icon size="20px" name="minus" bind:tap="tapScoreMinus"/>
+        <van-icon size="20px" name="minus" bind:tap="tapScoreMinus"/>
+      </view>
+    </picker-view>
+
+  </view>
+
+  <!-- <van-picker columns="{{ scoreColumns }}" /> -->
+  <view class="flex-row j_sc">
+    <van-button round type="warning">取消记分</van-button>
+    <van-button disabled="{{recordAnble}}" round type="primary" bind:tap="tapRecordScore">完成记分</van-button>
+  </view>
+
+
+
+</view>

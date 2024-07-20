@@ -1,0 +1,171 @@
+<!--components/mainrace-rank/race-rank.wxml-->
+<!-- 第一种：不分性别，统一排榜；第二种：分男女榜 做成可选-->
+<view class="box">
+  <!-- <view class="female-rank-box">
+    <view class="title flex-row">
+      <view class="j_sc" style="flex: 1;">女榜</view>
+      <view class="j_sc" style="flex: 2;">选手</view>
+      <view class="j_sc" style="flex: 1;">胜 - 负</view>
+      <view class="j_sc" style="flex: 1;">积分</view>
+      <view class="j_sc" style="flex: 1;">净胜分</view>
+    </view> -->
+  <!-- <view class="palyer-box"> -->
+  <!-- <view class="flex-row">
+        <view class="j_sc" style="flex: 1;">
+          <image style="width: 50rpx;height: 50rpx; border-radius: 50%;" src="/assets/icon/gold.png" mode="aspectFill" />
+        </view>
+        <view class="flex-row j_sc" style="flex: 2;">
+          <image style="width: 50rpx;height: 50rpx; border-radius: 50%;" src="/assets/image/tom.jpeg" mode="aspectFill" />
+          <text>tom</text>
+        </view>
+        <view class="j_sc" style="flex: 1;">
+          4 - 2
+        </view>
+        <view class="j_sc" style="flex: 1;">
+          8
+        </view>
+        <view class="j_sc" style="flex: 1;">
+          19
+        </view>
+      </view> -->
+
+  <!-- </view> -->
+  <!-- </view> -->
+
+  <view class="flex-row j_sa switch-box">
+    <text>总榜</text>
+    <van-switch checked="{{ switchChoose }}" active-color="#00FFFF" inactive-color="	#FFD700" bind:change="onSwitchChoose" />
+    <text>男女榜</text>
+  </view>
+  <scroll-view scroll-y refresher-enabled="{{canRefresherEnable}}" show-scrollbar="{{false}}" bindrefresherrefresh="refresh" refresher-triggered="{{triggered}}" bind:scroll="onScroll" class="scroll-view-box">
+    <block wx:if="{{!switchChoose}}">
+      <view class="overall-rank-box">
+        <view class="title flex-row">
+          <text class="j_sc" style="flex: 1;">总榜</text>
+          <text class="j_sc" style="flex: 2;">选手</text>
+          <text class="j_sc" style="flex: 1;">胜 - 负</text>
+          <text class="j_sc" style="flex: 1;">积分</text>
+          <text class="j_sc" style="flex: 1;">净胜分</text>
+        </view>
+        <block wx:for="{{raceRanks}}" wx:for-item="rank" wx:key="rid">
+          <view class="palyer-box">
+            <view class="flex-row">
+              <view class="j_sc" style="flex: 1;">
+                <view wx:if="{{index==0}}">
+                  <image style="width: 50rpx;height: 50rpx; border-radius: 50%;" src="/assets/icon/gold.png" mode="aspectFill" />
+                </view>
+                <view wx:if="{{index==1}}">
+                  <image style="width: 50rpx;height: 50rpx; border-radius: 50%;" src="/assets/icon/silver.png" mode="aspectFill" />
+                </view>
+                <view wx:if="{{index==2}}">
+                  <image style="width: 50rpx;height: 50rpx; border-radius: 50%;" src="/assets/icon/bronze.png" mode="aspectFill" />
+                </view>
+              </view>
+              <view class="flex-row j_sc" style="flex: 2;">
+                <image style="width: 50rpx;height: 50rpx; border-radius: 50%;" src="{{rank.player.avatarUrl}}" mode="aspectFill" />
+                <text>{{rank.player.nickName}}</text>
+              </view>
+              <view class="j_sc" style="flex: 1;">
+                {{rank.victories}} - {{rank.failures}}
+              </view>
+              <view class="j_sc" style="flex: 1;">
+                {{rank.odds}}
+              </view>
+              <view class="j_sc" style="flex: 1;">
+                {{rank.oddsDifference}}
+              </view>
+            </view>
+          </view>
+        </block>
+
+      </view>
+    </block>
+    <block wx:else>
+      <view class="female-rank-box">
+        <view class="title flex-row">
+          <text class="j_sc" style="flex: 1;">女榜</text>
+          <text class="j_sc" style="flex: 2;">选手</text>
+          <text class="j_sc" style="flex: 1;">胜 - 负</text>
+          <text class="j_sc" style="flex: 1;">积分</text>
+          <text class="j_sc" style="flex: 1;">净胜分</text>
+        </view>
+        <block wx:for="{{femaleRanks}}" wx:for-item="rank" wx:key="rid">
+          <view class="palyer-box">
+            <view class="flex-row">
+              <view class="j_sc" style="flex: 1;">
+                <view wx:if="{{index==0}}">
+                  <image style="width: 50rpx;height: 50rpx; border-radius: 50%;" src="/assets/icon/gold.png" mode="aspectFill" />
+                </view>
+                <view wx:if="{{index==1}}">
+                  <image style="width: 50rpx;height: 50rpx; border-radius: 50%;" src="/assets/icon/silver.png" mode="aspectFill" />
+                </view>
+                <view wx:if="{{index==2}}">
+                  <image style="width: 50rpx;height: 50rpx; border-radius: 50%;" src="/assets/icon/bronze.png" mode="aspectFill" />
+                </view>
+              </view>
+              <view class="flex-row j_sc" style="flex: 2;">
+                <image style="width: 50rpx;height: 50rpx; border-radius: 50%;" src="{{rank.player.avatarUrl}}" mode="aspectFill" />
+                <text>{{rank.player.nickName}}</text>
+              </view>
+              <view class="j_sc" style="flex: 1;">
+                {{rank.victories}} - {{rank.failures}}
+              </view>
+              <view class="j_sc" style="flex: 1;">
+                {{rank.odds}}
+              </view>
+              <view class="j_sc" style="flex: 1;">
+                {{rank.oddsDifference}}
+              </view>
+            </view>
+          </view>
+        </block>
+
+      </view>
+      <view class="male-rank-box">
+        <view class="title flex-row">
+          <text class="j_sc" style="flex: 1;">男榜</text>
+          <text class="j_sc" style="flex: 2;">选手</text>
+          <text class="j_sc" style="flex: 1;">胜 - 负</text>
+          <text class="j_sc" style="flex: 1;">积分</text>
+          <text class="j_sc" style="flex: 1;">净胜分</text>
+        </view>
+        <block wx:for="{{maleRanks}}" wx:for-item="rank" wx:key="rid">
+          <view class="palyer-box">
+            <view class="flex-row">
+              <view class="j_sc" style="flex: 1;">
+                <view wx:if="{{index==0}}">
+                  <image style="width: 50rpx;height: 50rpx; border-radius: 50%;" src="/assets/icon/gold.png" mode="aspectFill" />
+                </view>
+                <view wx:if="{{index==1}}">
+                  <image style="width: 50rpx;height: 50rpx; border-radius: 50%;" src="/assets/icon/silver.png" mode="aspectFill" />
+                </view>
+                <view wx:if="{{index==2}}">
+                  <image style="width: 50rpx;height: 50rpx; border-radius: 50%;" src="/assets/icon/bronze.png" mode="aspectFill" />
+                </view>
+              </view>
+              <view class="flex-row j_sc" style="flex: 2;">
+                <image style="width: 50rpx;height: 50rpx; border-radius: 50%;" src="{{rank.player.avatarUrl}}" mode="aspectFill" />
+                <text>{{rank.player.nickName}}</text>
+              </view>
+              <view class="j_sc" style="flex: 1;">
+                {{rank.victories}} - {{rank.failures}}
+              </view>
+              <view class="j_sc" style="flex: 1;">
+                {{rank.odds}}
+              </view>
+              <view class="j_sc" style="flex: 1;">
+                {{rank.oddsDifference}}
+              </view>
+            </view>
+          </view>
+        </block>
+
+      </view>
+    </block>
+
+  </scroll-view>
+
+</view>
+
+<!-- 选择排名模式 -->
+<view></view>

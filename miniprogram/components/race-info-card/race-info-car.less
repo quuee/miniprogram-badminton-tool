@@ -1,0 +1,60 @@
+/* components/race-info-card/race-info-car.wxss */
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.card-container {
+  width: calc(100% - 40rpx);
+  background-color: rgb(184, 236, 243);
+  margin: 20rpx;
+  border-radius: 30rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 10rpx;
+  filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, .3));
+  /*  mask 裁剪的图形需要在外层嵌套一层父级，不然投影会被 mask 直接裁剪掉 */
+  position: relative;
+
+  .item-ribbon {
+    /* 右上角飘带 */
+    overflow: hidden;
+    white-space: nowrap;
+    /* 文字不换行*/
+    position: absolute;
+    /* 绝对定位 */
+    right: -55rpx;
+    top: 10rpx;
+    transform: rotate(45deg);
+    /* 旋转45°*/
+    box-shadow: 0 0 10rpx #888;
+    /* 飘带的阴影*/
+
+    text{
+      border: 1rpx solid ;
+      color: #fff;
+      display: block;
+      font: bold 100% 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 24rpx;
+      margin: 1rpx 0;
+      padding: 5rpx 50rpx;
+      text-align: center;
+      text-shadow: 0 0 5rpx #444;
+    }
+  }
+
+  .item-content{
+    color: #333;
+    margin: 5rpx;
+    align-items: center;
+    
+  }
+  
+}

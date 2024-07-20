@@ -1,0 +1,20 @@
+<!--pages/bdmt_home/index.wxml-->
+<view>
+  <van-tabs swipeable sticky active="{{ activeIndex }}" bind:change="onTabChange">
+
+    <scroll-view scroll-y refresher-enabled show-scrollbar="{{false}}" bindrefresherrefresh="getRaceList"	 refresher-triggered="{{triggered}}" >
+    
+      <block wx:for="{{tabList}}" wx:for-item="tabItem" wx:key="tabItem">
+        <van-tab title="{{tabItem.tabName}}">
+          <view class="card-container" wx:if="{{tabItem.tabType == 1}}">
+            <block wx:for="{{raceList}}" wx:for-item="raceItem" wx:key="raceItem">
+              <race-info-card raceItem="{{raceItem}}"></race-info-card>
+            </block>
+
+          </view>
+        </van-tab>
+      </block>
+    </scroll-view>
+    
+  </van-tabs>
+</view>

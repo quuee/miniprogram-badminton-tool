@@ -1,0 +1,20 @@
+<!--pages/bdmt_race_applicants/index.wxml-->
+<wxs module="Trans" src="../../utils/state_trans.wxs"></wxs>
+<view class="flex-column player-box">
+  <block wx:for="{{applicants}}" wx:for-item="player" wx:key="uid">
+    <view class="palyer-item-box flex-row">
+      <avatar-circle avatarUrl="{{player.avatarUrl}}" />
+      <view> {{index}}号，{{player.nickName}}，{{player.gender}}，{{player.level}}</view>
+      <van-divider />
+    </view>
+  </block>
+
+</view>
+
+<view class="bottom-box">
+  <view class="button-action">
+    <van-button type="primary">抽签</van-button>
+    <van-button plain hairline type="primary">管理选手</van-button>
+  </view>
+
+</view>

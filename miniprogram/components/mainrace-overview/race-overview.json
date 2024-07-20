@@ -1,0 +1,12 @@
+{
+  "component": true,
+  "usingComponents": {
+
+    "van-button": "@vant/weapp/button/index",
+    "van-divider": "@vant/weapp/divider/index",
+    "van-toast": "@vant/weapp/toast/index",
+    "van-dialog": "@vant/weapp/dialog/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "avatar-circle":"/components/avatar-circle/avatar-circle"
+  }
+}

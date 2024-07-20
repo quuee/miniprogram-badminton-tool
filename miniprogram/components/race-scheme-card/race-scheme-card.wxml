@@ -1,0 +1,12 @@
+<!--components/race-format-card/race-format-card.wxml-->
+<view class="card-container flex-row">
+
+  <view class="box-left flex-column">
+    <view class="race-format-title">{{raceSchemeItem.raceScheme}}</view>
+    <view> {{raceSchemeItem.simpleDesc}} </view>
+    <text style="color: blue;">详细介绍</text>
+    <text decode>&nbsp;&nbsp;&nbsp;&nbsp;</text>
+    <text style="color: blue;">{{raceSchemeItem.raceScheme}}示例</text>
+  </view>
+  <button class="box-right" bind:tap="cilckLaunch" mark:raceMainType="{{raceSchemeItem.raceMainType}}">发起</button>
+</view>

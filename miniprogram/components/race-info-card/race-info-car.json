@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "avatar-circle":"/components/avatar-circle/avatar-circle"
+  }
+}

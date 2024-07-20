@@ -1,0 +1,8 @@
+{
+  "component": true,
+  "usingComponents": {
+    "avatar-circle":"/components/avatar-circle/avatar-circle",
+    "van-dialog": "@vant/weapp/dialog/index",
+    "van-icon": "@vant/weapp/icon/index"
+  }
+}

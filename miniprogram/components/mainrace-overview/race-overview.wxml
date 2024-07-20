@@ -1,0 +1,122 @@
+<!--components/mainrace-overview/race_overview.wxml-->
+
+<wxs module="Trans" src="../../utils/state_trans.wxs"></wxs>
+<view class="box">
+  <scroll-view scroll-y refresher-enabled="{{canRefresherEnable}}" show-scrollbar="{{false}}" bindrefresherrefresh="refresh" refresher-triggered="{{triggered}}" bind:scroll="onScroll" class="scroll-view-box">
+    <view class="race-info-card">
+      <!-- 右上角飘带 -->
+      <view class="item-ribbon" style="background-color: {{Trans.raceStateColorTrans(raceInfo.raceState)}};">
+        <text>{{Trans.raceStateTrans(raceInfo.raceState)}}</text>
+      </view>
+      <view>
+        <view>{{raceInfo.raceTitle}}</view>
+        <van-divider />
+        <view>日期: {{Trans.raceTimeTrans(raceInfo.raceDateTime)}}</view>
+        <view>类型:
+          {{Trans.raceMainTypeTrans(raceInfo.raceMainType)}}，
+          {{raceInfo.raceScheme.raceScheme}}，
+          性别: {{Trans.genderLimitStateTrans(raceInfo.genderLimit)}}
+        </view>
+        <view>排名: 按积分、净胜分降序</view>
+        <view>赛制: <text>{{Trans.raceBOXTrans(raceInfo.raceBOX)}}</text>，
+          {{raceInfo.raceScoreMode}}分
+        </view>
+        <view>人数: 预计{{raceInfo.predictApplyNum}}人，实报{{raceInfo.applicants.length}}人</view>
+        <view>对阵: 随机</view>
+      </view>
+      <!-- <van-divider /> -->
+      <view class="flex-row" style="justify-content: space-between;" bind:tap="clickGeneratorApplyCode">
+        <view>报名码</view>
+        <van-icon name="arrow" />
+      </view>
+    </view>
+
+    <view class="race-info-card" bind:tap="toApplicantsPage">
+      <view class="arrow"></view>
+      <view>已报名: </view>
+      <scroll-view scroll-x>
+        <view class="flex-row">
+          <avatar-circle wx:for="{{raceInfo.applicants}}" wx:for-item="item" wx:key="uid" avatarUrl="{{item.avatarUrl}}" />
+        </view>
+      </scroll-view>
+
+
+    </view>
+    <view class="race-info-card">
+      <view class="arrow"></view>
+      <view>组织者:
+        <avatar-circle avatarUrl="{{raceInfo.organizer.avatarUrl}}" />
+      </view>
+    </view>
+
+  </scroll-view>
+
+
+  <!-- 底部操作按钮 -->
+  <!-- 创建者: 报名、转发、（开启/结束）、取消、修改、报名码、管理选手、暂停报名/恢复报名-->
+  <!-- 参与者:转发、报名（未开始可退赛，开始后变比赛中） -->
+  <block wx:if="{{raceInfo.organization}}">
+    <view class="bottom-box flex-column">
+      <view class="flex-row j_sa button-action">
+        <van-button disabled="{{raceInfo.raceState != 1}}" round size="large" type="primary" style="width: 20%;" bind:tap="clickApplyRetireRace" mark:raceId="{{raceInfo.raceId}}">{{raceInfo.applied?"退赛":"报名"}}</van-button>
+        <van-button round size="large" type="warning" style="width: 40%;" open-type="share">转发</van-button>
+        <van-button disabled="{{raceInfo.raceState > 2}}" round size="large" type="info" style="width: 20%;" bind:tap="clickStartRaceDialog">{{Trans.raceStateAction(raceInfo.raceState)}}</van-button>
+      </view>
+      <view class="flex-row more-butoon-action">
+        <text bind:tap="clickDeleteRace">取消</text>
+        <text bind:tap="gotoEditRace">修改</text>
+        <text>{{raceInfo.raceState == 2?"恢复报名":"暂停报名"}}</text>
+      </view>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="bottom-box flex-row j_sa">
+      <van-button disabled="{{raceInfo.raceState != 1}}" round size="large" type="primary" style="width: 20%;" bind:tap="clickApplyRetireRace" mark:raceId="{{raceInfo.raceId}}">{{raceInfo.applied?"退赛":"报名"}}</van-button>
+      <van-button round size="large" type="warning" style="width: 40%;" open-type="share">转发</van-button>
+    </view>
+  </block>
+
+  <van-dialog use-slot title="开启比赛" show="{{ showStartRace }}" show-cancel-button show-confirm-button bind:close="clickCloseStartRaceDialog" bind:confirm="clickStartRace">
+    <view style="padding: 40rpx;">
+      <!-- 人数 -->
+      <view class="flex-row">
+        <view style="flex: 1;">人数: </view>
+        <view style="flex: 3;">{{raceInfo.applicants.length}} 人</view>
+      </view>
+      <!-- 场次 -->
+      <view class="flex-row">
+        <view style="flex: 1;">场次: </view>
+        <view style="flex: 4;">
+          <radio-group bindchange="">
+            <block wx:for="{{showDataSessions}}" wx:key="session" wx:for-item="session">
+              <radio color="green" value="{{sessionIndex}}" checked="{{index==0}}">每人{{session}}场，总共{{session*raceInfo.applicants.length/4}}场</radio>
+            </block>
+          </radio-group>
+        </view>
+      </view>
+      <!-- 场地数 -->
+      <view class="flex-row">
+        <view style="flex: 1;">场地数: </view>
+        <view style="flex: 4;">
+          <radio-group bindchange="onFieldNumChange">
+            <block wx:for="{{showDatafieldNum}}" wx:key="num" wx:for-item="num">
+              <radio color="green" value="{{num+1}}" checked="{{index==0}}">{{num+1}}片</radio>
+            </block>
+          </radio-group>
+        </view>
+      </view>
+      <!-- 对阵方式：随机乱斗 抽签 固定搭 -->
+      <view class="flex-row">
+        <view style="flex: 1;">对阵: </view>
+        <view style="flex: 4;">
+          <radio-group bindchange="">
+            <radio color="green" value="1" checked="true">随机乱斗</radio>
+          </radio-group>
+        </view>
+      </view>
+      <!-- 其他：势均力敌、不出现男双对女双 -->
+    </view>
+
+  </van-dialog>
+
+</view>

@@ -1,0 +1,53 @@
+<!--pages/bdmt_create_race/index.wxml-->
+
+<view>
+  <van-cell-group>
+    <van-field label="比赛" model:raceTitle="{{ formData.raceTitle }}" placeholder="请输入比赛名称" bind:blur="onRaceTitleBlur" />
+  </van-cell-group>
+
+  <van-cell-group>
+    <!--van-cell 传入外部css覆盖原先的css样式-->
+    <van-cell title="类型" is-link bind:click="showPopup" mark:showName="raceScheme" value="{{raceSchemeVOList[raceSchemeIndex]}}" title-class="cell-title-custome" value-class="cell-value-custom" />
+    <van-popup show="{{ showRaceScheme }}" position="bottom" bind:close="onClosePopup">
+      <van-picker show-toolbar title="选择比赛类型" columns="{{ raceSchemeVOList }}" bind:confirm="onRaceSchemeConfirm" bind:cancel="onClosePopup" />
+    </van-popup>
+
+    <van-cell title="性别" is-link bind:click="showPopup" mark:showName="genderLimit" value="{{genderList[genderIndex]}}" title-class="cell-title-custome" value-class="cell-value-custom" />
+    <van-popup show="{{ showGenderLimit }}" position="bottom" bind:close="onClosePopup">
+      <van-picker show-toolbar title="选择性别" columns="{{ genderList }}" bind:confirm="onGenderLimitConfirm" bind:cancel="onClosePopup" />
+    </van-popup>
+
+    <van-cell title="人数" is-link bind:click="showPopup" mark:showName="applicats" value="{{applicatsList[applicatsIndex]}}人" title-class="cell-title-custome" value-class="cell-value-custom" />
+    <van-popup show="{{ showApplicats }}" position="bottom" bind:close="onClosePopup">
+      <van-picker show-toolbar title="选择人数" columns="{{ applicatsList }}" bind:confirm="onApplicatsConfirm" bind:cancel="onClosePopup" />
+    </van-popup>
+
+    <van-cell title="赛制" is-link bind:click="showPopup" mark:showName="raceMode" value="{{raceBOList[0].values[raceBOIndex]}},{{raceBOList[1].values[raceScoreModeIndex]}}分" title-class="cell-title-custome" value-class="cell-value-custom" />
+    <van-popup show="{{ showRaceMode }}" position="bottom" bind:close="onClosePopup">
+      <van-picker show-toolbar title="选择赛制比分" columns="{{ raceBOList }}" bind:confirm="onRaceModeConfirm" bind:cancel="onClosePopup" />
+    </van-popup>
+
+  </van-cell-group>
+
+  <van-cell-group>
+    <van-cell title="日期" is-link bind:click="showPopup" mark:showName="showCalender" value="{{formData.raceCalender}}" title-class="cell-title-custome" value-class="cell-value-custom" />
+    <van-calendar show="{{ showCalender }}" bind:close="onClosePopup" bind:confirm="onCalenderConfirm" />
+
+
+    <van-cell title="时间" is-link bind:click="showPopup" mark:showName="showTime" value="{{raceTimeArr[0].values[hourIndex]}} : {{raceTimeArr[1].values[minuteIndex]}}" title-class="cell-title-custome" value-class="cell-value-custom" />
+    <van-popup show="{{ showTime }}" position="bottom" bind:close="onClosePopup">
+      <van-picker show-toolbar title="请选择时间" columns="{{ raceTimeArr }}" bind:cancel="onClosePopup" bind:confirm="onTimeConfirm" />
+    </van-popup>
+
+    <van-field model:raceAddress="{{ formData.raceAddress }}" clearable label="地点" icon="location" placeholder="请输入地点" bind:click-icon="clickLocationIcon" bind:blur="onAddressBlur" />
+  </van-cell-group>
+  <van-cell-group title="补充">
+    <van-field model:addContext="{{ formData.addContext }}" clearable type="textarea" autosize placeholder="请输入补充说明" border="{{ true }}" bind:blur="onAddContextBlur" />
+  </van-cell-group>
+  <view class="bottom-box flex-row j_c">
+    <van-button type="default">清空</van-button>
+    <van-button type="primary" bind:tap="clickCreateRace">确定</van-button>
+    <van-button type="default">保存</van-button>
+  </view>
+
+</view>

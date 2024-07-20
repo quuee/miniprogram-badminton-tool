@@ -1,0 +1,38 @@
+{
+  "pages": [
+    "pages/bdmt_home/index",
+    "pages/bdmt_mine/index",
+    "pages/bdmt_choose_race/index",
+    "pages/bdmt_create_race/index",
+    "pages/bdmt_main_race/index",
+    "pages/bdmt_race_applicants/index",
+    "pages/bdmt_race_battle_record/index",
+
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "entryPagePath": "pages/bdmt_home/index",
+  "window": {},
+  "componentFramework": "glass-easel",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents",
+
+  "tabBar": {
+    "custom": true,
+    "color": "#000000",
+    "selectedColor": "#000000",
+    "backgroundColor": "#000000",
+    "list": [{
+      "pagePath": "pages/bdmt_home/index",
+      "iconPath": "assets/icon/unselect_badminton.png",
+      "selectedIconPath": "assets/icon/select_badminton.png",
+      "text": "首页"
+    }, {
+      "pagePath": "pages/bdmt_mine/index",
+      "iconPath": "assets/icon/unselect_me.png",
+      "selectedIconPath": "assets/icon/select_me.png",
+      "text": "我的"
+    }]
+  },
+  "usingComponents": {}
+}

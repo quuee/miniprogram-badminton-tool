@@ -1,0 +1,33 @@
+<view class="custom-tabbar flex-row">
+  <block wx:for="{{tabbarList}}" wx:for-item="item" wx:key="item">
+    <!-- 中间的半圆 -->
+    <view class="tabbar-item flex-column j_c {{selected == index && 'active'}}" wx:if="{{index == 1}}" data-url="{{item.pagePath}}" data-index="{{index}}" catch:tap="switchTab">
+      <image bind:tap="clickSheetShow" src="{{item.iconPath}}" mode="aspectFill" class="tabbar-circle" />
+      <view class="tabbar-item-text">{{item.text}}</view>
+    </view>
+
+    <!-- 其他tabbar -->
+    <view class="tabbar-item flex-column j_c {{selected == index && 'active'}}" wx:else data-url="{{item.pagePath}}" data-index="{{index}}" catch:tap="switchTab">
+      <image src="{{item.iconPath}}" mode="aspectFill" class="tabbar-item-icon" />
+      <view class="tabbar-item-text">{{item.text}}</view>
+    </view>
+  </block>
+
+  <van-action-sheet show="{{ actionSheetShow }}" description="请选择一个实例" bind:close="onSheetClose">
+    <view class="sheet-container">
+      <View class="flex-column">
+        <image src="../assets/icon/activity.png" bind:tap="" />
+        <text>活动</text>
+      </View>
+      <view class="flex-column">
+        <image src="../assets/icon/race.png" bind:tap="clickLaunchRace" />
+        <text>比赛</text>
+      </view>
+      <view class="flex-column">
+        <image src="../assets/icon/club.png" bind:tap="" />
+        <text>俱乐部</text>
+      </view>
+    </view>
+  </van-action-sheet>
+
+</view>

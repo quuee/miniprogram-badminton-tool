@@ -1,0 +1,29 @@
+<page-layout>
+  <view slot="header">
+    <header-navbar title="个人信息"></header-navbar>
+  </view>
+  <!-- 关键代码 start -->
+  <view slot="scroll" class="content">
+    <view class="row">
+      <view class="text1">头像：</view>
+      <button class="avatar-wrapper" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+        <image class="avatar" src="{{userInfo.avatarUrl||''}}"></image>
+      </button>
+    </view>
+    <view class="row">
+      <view class="text1">昵称：</view>
+      <input type="nickname" class="name-input" name="nickName" value="{{userInfo.nickName||''}}" bindchange="onInputChange" placeholder="请输入昵称" />
+    </view>
+    <view class="row">
+      <view class="text1">性别：</view>
+      <radio-group bindchange="onGenderChange">
+      <radio color="red" value="male"> 男</radio>
+      <radio color="red" value="female"> 女</radio>
+    </radio-group>
+
+    </view>
+  </view>
+  <!-- 关键代码 end -->
+
+  <button bindtap="clickSave">保存</button>
+</page-layout>

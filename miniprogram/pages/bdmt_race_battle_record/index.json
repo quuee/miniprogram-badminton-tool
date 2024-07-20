@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "avatar-circle":"/components/avatar-circle/avatar-circle",
+    "van-picker": "@vant/weapp/picker/index",
+    "van-button": "@vant/weapp/button/index",
+    "van-icon": "@vant/weapp/icon/index"
+  },
+  "navigationBarTitleText": "对阵",
+  "navigationBarBackgroundColor":"#fff",
+  "navigationBarTextStyle":"black"
+}

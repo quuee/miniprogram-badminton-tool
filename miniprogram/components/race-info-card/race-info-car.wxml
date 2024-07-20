@@ -1,0 +1,29 @@
+<!--components/race-info-card/race-info-car.wxml-->
+<wxs module="Trans" src="../../utils/state_trans.wxs"></wxs>
+<view class="card-container flex-column" bind:tap="clickCardTap" data-raceItemId="{{raceItem.raceId}}">
+  <!-- 右上角飘带 -->
+  <view class="item-ribbon" style="background-color: {{Trans.raceStateColorTrans(raceItem.raceState)}};"> 
+    <text>{{Trans.raceStateTrans(raceItem.raceState)}}</text>
+  </view>
+  <view class="item-content">{{raceItem.raceTitle}}</view>
+  <view class="item-content">
+    <text>{{Trans.raceTimeTrans(raceItem.raceDateTime)}}</text>
+  </view>
+  <view class="item-content">
+    <text>{{Trans.raceMainTypeTrans(raceItem.raceMainType)}}</text>，
+    {{raceItem.raceScheme.raceScheme}}，
+    <text>{{Trans.raceBOXTrans(raceItem.raceBOX)}}</text>，
+    {{raceItem.raceScoreMode}}分
+  </view>
+  <view class="item-content flex-row">
+    组织人：{{raceItem.organizer.nickName}}
+    <avatar-circle avatarUrl="{{raceItem.organizer.avatarUrl}}" /> 
+    报名：{{raceItem.applicants.length}}/{{raceItem.predictApplyNum}}
+  </view>
+  <scroll-view scroll-x>
+    <view class="flex-row">
+      <avatar-circle wx:for="{{raceItem.applicants}}" wx:for-item="item" wx:key="uid" avatarUrl="{{item.avatarUrl}}" />
+    </view>
+  </scroll-view>
+  
+</view>

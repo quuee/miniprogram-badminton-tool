@@ -1,0 +1,18 @@
+{
+  "usingComponents": {
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index",
+    "van-toast": "@vant/weapp/toast/index",
+    "van-dialog": "@vant/weapp/dialog/index",
+    
+    "race-overview":"/components/mainrace-overview/race-overview",
+    "race-rank":"/components/mainrace-rank/race-rank",
+    "race-battle":"/components/mainrace-battle/race-battle",
+    "race-referee":"/components/mainrace-referee/race-referee"
+    
+  },
+  "navigationBarTitleText": "比赛",
+  "navigationBarBackgroundColor":"#fff",
+  "navigationBarTextStyle":"black"
+
+}

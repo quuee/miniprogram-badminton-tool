@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "avatar-circle":"/components/avatar-circle/avatar-circle",
+    "van-divider": "@vant/weapp/divider/index",
+    "van-button": "@vant/weapp/button/index"
+  },
+  "navigationBarTitleText": "选手",
+  "navigationBarBackgroundColor":"#fff",
+  "navigationBarTextStyle":"black"
+}

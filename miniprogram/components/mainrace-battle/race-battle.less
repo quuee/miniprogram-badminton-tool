@@ -1,0 +1,74 @@
+/* components/mainrace-battle/race-battle.wxss */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.j_cs {
+  align-items: center;
+  justify-content: space-around;
+}
+
+.box {
+  width: 100%;
+  height: 100%;
+
+  .scroll-view-box {
+
+    height: calc(100vh - 80rpx - 44rpx - 44rpx);
+    // height: 100vh;
+    // margin-bottom: 80rpx;
+
+    .battle-box {
+      width: calc(100% - 40rpx);
+      margin-top: 20rpx;
+      background-color: gainsboro;
+      border-radius: 30rpx;
+      box-sizing: border-box;
+      margin-left: 20rpx;
+      padding: 20rpx;
+      filter: drop-shadow(2px 2px 1px rgba(0, 0, 0, .3));
+      position: relative;
+
+      .text-container {
+        width: 75%;
+        overflow: hidden; //一定要写
+        text-overflow: ellipsis; //超出省略号
+        display: -webkit-box; //一定要写
+        -webkit-line-clamp: 2; //控制行数
+        -webkit-box-orient: vertical; //一定要写
+      }
+    }
+  }
+
+  .bottom-box {
+    height: 80rpx;
+    width: 100%;
+    position: fixed;
+    bottom: 0rpx;
+    background-color: #F5FFFA;
+
+    .select-player-wrap {
+      position: relative;
+      width: 80rpx;
+      height: 80rpx;
+
+      .avatar-right {
+        width: 24prx;
+        height: 24rpx;
+        background-color: cornflowerblue;
+        color: white;
+        position: absolute;
+        left: 80%;
+        top: 1rpx;
+        border-radius: 12rpx;
+      }
+    }
+
+  }
+}

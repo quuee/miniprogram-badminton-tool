@@ -1,0 +1,58 @@
+<!--components/mainrace-battle/race-battle.wxml-->
+<wxs module="Trans" src="../../utils/state_trans.wxs"></wxs>
+<view class="box">
+  <scroll-view scroll-y refresher-enabled="{{canRefresherEnable}}" show-scrollbar="{{false}}" bindrefresherrefresh="refresh" refresher-triggered="{{triggered}}" bind:scroll="onScroll" class="scroll-view-box">
+    <block wx:for="{{tempBattles}}" wx:for-item="battle" wx:key="bid">
+
+      <view class="battle-box flex-row j_cs">
+        <!--组1-->
+        <view class="flex-column">
+          <view class="flex-row">
+            <!--头像-->
+            <avatar-circle bind:tap="selectPalyerBattle" mark:uid="{{battle.player1.uid}}" avatarUrl="{{battle.player1.avatarUrl}}" />
+            <avatar-circle bind:tap="selectPalyerBattle" mark:uid="{{battle.player2.uid}}" avatarUrl="{{battle.player2.avatarUrl}}" />
+          </view>
+          <!--昵称-->
+          <view class="text-container">{{battle.player1.nickName}} & {{battle.player2.nickName}}</view>
+        </view>
+
+        <view>VS</view>
+
+        <!--组2-->
+        <view class="flex-column">
+          <view class="flex-row">
+            <!--头像-->
+            <avatar-circle bind:tap="selectPalyerBattle" mark:uid="{{battle.player3.uid}}" avatarUrl="{{battle.player3.avatarUrl}}" />
+            <avatar-circle bind:tap="selectPalyerBattle" mark:uid="{{battle.player4.uid}}" avatarUrl="{{battle.player4.avatarUrl}}" />
+          </view>
+          <!--昵称-->
+          <view class="text-container">{{battle.player3.nickName}} & {{battle.player4.nickName}}</view>
+        </view>
+
+        <!--场次/比分-->
+        <view class="flex-column" bind:tap="toRaceBattlePage" mark:battleModel="{{battle}}">
+          <view>第{{battle.roundNum}}场</view>
+          <view>{{battle.firstPartnerScore}} : {{battle.secondPartnerScore}}</view>
+          <view>{{Trans.raceBattleStateTrans(battle.battleState)}}</view>
+        </view>
+      </view>
+    </block>
+
+  </scroll-view>
+
+  <!-- 底部点击头像筛选选手对阵 -->
+  <view class="bottom-box">
+    <view wx:if="{{selectPlayers.length == 0}}">
+      点击头像可筛选对阵
+    </view>
+    <view class="flex-row" wx:else>
+      <!--头像-->
+      <block wx:for="{{selectPlayers}}" wx:for-item="player" wx:key="uid">
+        <view class="select-player-wrap">
+          <avatar-circle avatarUrl="{{player.avatarUrl}}" />
+          <van-icon name="cross" class="avatar-right" bind:click="clickRemovePlayer" mark:uid="{{player.uid}}"/>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

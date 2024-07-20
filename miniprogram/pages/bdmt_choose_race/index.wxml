@@ -1,0 +1,14 @@
+<!--pages/bdmt_choose_race/index.wxml-->
+<view>
+  <van-tabs swipeable active="{{ activeIndex }}" bind:change="onChange">
+    <block wx:for="{{raceMainTypeTabList}}" wx:for-item="tabItem" wx:key="tabItem">
+      <van-tab title="{{tabItem.raceMainTypeName}}">
+
+        <block wx:for="{{raceSchemeList}}" wx:for-item="raceSchemeItem" wx:key="raceSchemeItem">
+          <race-scheme-card raceSchemeItem="{{raceSchemeItem}}"></race-scheme-card>
+        </block>
+
+      </van-tab>
+    </block>
+  </van-tabs>
+</view>

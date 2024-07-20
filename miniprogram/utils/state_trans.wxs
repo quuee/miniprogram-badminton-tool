@@ -1,0 +1,152 @@
+var genderLimitState = {
+  genderLimitStateTrans: function (num) {
+    switch (num) {
+      case 0: return "不限";
+      case 1: return "男";
+      case 2: return "女";
+      default:
+        return "";
+    }
+  }
+}
+
+var raceState = {
+  raceStateTrans: function (num) {
+    switch (num) {
+      case 1: return "报名中";
+      case 2: return "暂停报名";
+      case 3: return "比赛中";
+      case 4: return "已结束";
+      default:
+        return "";
+    }
+  },
+  raceStateAction: function (num) {
+    switch (num) {
+      case 1: return "开启";
+      case 2: return "开启";
+      case 3: return "比赛中";
+      case 4: return "已结束";
+      default:
+        return "";
+    }
+  },
+
+  raceStateColorTrans: function (num) {
+    switch (num) {
+      case 1: return "#43CD80";
+      case 2: return "#FFD700";
+      case 3: return "#FF6A6A";
+      case 4: return "#9C9C9C";
+      default:
+        return "#43CD80";
+    }
+  }
+}
+
+var raceBOX = {
+  raceBOXTrans: function (num) {
+    switch (num) {
+      case 1: return "一局定胜负";
+      case 3: return "三局两胜";
+      case 5: return "五局三胜";
+      default:
+        return "";
+    }
+  }
+}
+
+var raceMainType = {
+  raceMainTypeTrans: function (num) {
+    switch (num) {
+      case 1: return "双打";
+      case 2: return "单打";
+      case 3: return "对抗";
+      case 4: return "团队";
+      default:
+        return "";
+    }
+  }
+}
+
+var raceBattleState = {
+  raceBattleStateTrans: function (num) {
+    switch (num) {
+      case 1: return "比赛中";
+      case 2: return "已完成";
+      default:
+        return "未开始";
+    }
+  }
+}
+
+var userGender = {
+  userGenderTrans:function (num) {
+    switch (num) {
+      case 1: return "/assets/icon/male.png";
+      case 2: return "/assets/icon/female.png";
+      default:
+        return "/assets/icon/gender.png";
+    }
+  }
+}
+
+var level = {
+  levelTrans: function (num) {
+    switch(num){
+      
+      case 1: return "萌新";
+      case 2: return "中羽一级（入门）";
+      case 3: return "中羽二级";
+      case 4: return "中羽三级";
+      case 5: return "中羽四级";
+      case 6: return "中羽五级";
+      case 7: return "中羽六级（三级运动员）";
+      case 8: return "中羽七级（二级运动员";
+      case 9: return "中羽八级（一级运动员）";
+      case 10: return "中羽九级（运动健将）";
+      case 11: return "中羽十级（国手）";
+      default: return "未知大佬";
+    }
+  }
+}
+
+var raceTime = {
+  raceTimeTrans: function (datetime) {
+    // import { formatTime } from "./datetime_util"
+    // const res = formatTime(datetime)
+    // console.log("raceTimeTrans",res)
+    // return res;
+
+    var date = getDate(datetime)
+    var year = date.getFullYear()
+    var month = date.getMonth() + 1
+    var day = date.getDate()
+    var hour = date.getHours()
+    var minute = date.getMinutes()
+    var second = date.getSeconds()
+
+    var formatNumber = function name(n) {
+      var s = n.toString()
+      return s[1] ? s : '0' + s
+    }
+
+    var t = [year, month, day].map(formatNumber).join('/') +
+      ' ' +
+      [hour, minute, second].map(formatNumber).join(':')
+    return t
+  }
+}
+
+module.exports = {
+  genderLimitStateTrans: genderLimitState.genderLimitStateTrans,
+  raceStateTrans: raceState.raceStateTrans,
+  raceStateAction: raceState.raceStateAction,
+  raceStateColorTrans: raceState.raceStateColorTrans,
+  raceBOXTrans: raceBOX.raceBOXTrans,
+  raceMainTypeTrans: raceMainType.raceMainTypeTrans,
+  raceBattleStateTrans: raceBattleState.raceBattleStateTrans,
+  userGenderTrans: userGender.userGenderTrans,
+  levelTrans: level.levelTrans,
+  raceTimeTrans: raceTime.raceTimeTrans
+}

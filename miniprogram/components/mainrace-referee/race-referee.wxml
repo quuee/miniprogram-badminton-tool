@@ -1,0 +1,19 @@
+<!--components/mainrace-trial/race-trial.wxml-->
+<view class="flex-column referee-box">
+  <block wx:for="{{raceReferees}}" wx:for-item="referee" wx:key="uid">
+    <view class="referee-item-box flex-row">
+      <avatar-circle avatarUrl="{{referee.avatarUrl}}" />
+      <view>
+        {{index+1}}号裁判，{{referee.nickName}}，{{referee.gender}}，{{referee.level}}
+      </view>
+      <view>
+        {{referee.master?"已判N场":"待审核"}}
+      </view>
+      <block wx:if="{{!referee.master}}">
+        <van-button type="default">通过</van-button>
+      </block>
+      <van-divider />
+    </view>
+  </block>
+
+</view>

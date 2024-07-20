@@ -1,0 +1,67 @@
+<!--pages/bdmt_mine/index.wxml-->
+<wxs module="Trans" src="../../utils/state_trans.wxs"></wxs>
+<view class="container flex-column">
+
+  <!-- 用户信息：头像、性别、评级 -->
+  <view class="userInfo-box flex-row">
+    <button open-type="chooseAvatar" class="avatar-wrapper" bindchooseavatar="chooseavatar">
+      <avatar-circle avatarUrl="{{userInfo.avatarUrl}}" />
+    </button>
+    <text>{{userInfo.nickName}}</text>
+    <image style="width: 30rpx;height: 30rpx;" src="{{Trans.userGenderTrans(userInfo.gender)}}" mode="aspectFit" />
+    <text>{{Trans.levelTrans(userInfo.level)}}</text>
+    <image style="width: 30rpx;height: 30rpx;" src="../../assets/icon/edit.png" mode="aspectFit" />
+  </view>
+
+  <!--战绩总览-->
+  <view class="record-box flex-row">
+    <view class="flex-column">
+      <text>单打</text>
+      <text>{{allBattleStatistics.singles.totalWins + allBattleStatistics.singles.totalLosses}}场</text>
+    </view>
+    <view class="flex-column">
+      <text>胜率</text>
+      <text>{{allBattleStatistics.singles.winPercentage * 100}}%</text>
+    </view>
+
+    <view class="flex-column">
+      <text>双打</text>
+      <text>{{allBattleStatistics.doubles.totalWins + allBattleStatistics.doubles.totalLosses}}场</text>
+    </view>
+    <view class="flex-column">
+      <text>胜率</text>
+      <text>{{allBattleStatistics.doubles.winPercentage * 100}}%</text>
+    </view>
+  </view>
+
+  <!-- 功能 -->
+  <view class="function-box">
+    <view class="flex-column inner-item">
+      <image style="width: 80rpx;height: 80rpx;" src="/assets/icon/record_history.png" mode="aspectFill" />
+      <text>历史战绩</text>
+    </view>
+    <view class="flex-column inner-item">
+      <image style="width: 80rpx;height: 80rpx;" src="/assets/icon/activity.png" mode="aspectFill" />
+      <text>我的活动</text>
+    </view>
+    <view class="flex-column inner-item">
+      <image style="width: 80rpx;height: 80rpx;" src="/assets/icon/club.png" mode="aspectFill" />
+      <text>我的俱乐部</text>
+    </view>
+    <view class="flex-column inner-item">
+      <image style="width: 80rpx;height: 80rpx;" src="/assets/icon/practice.png" mode="aspectFill" />
+      <text>中羽等级</text>
+    </view>
+    <view class="flex-column inner-item">
+      <image style="width: 80rpx;height: 80rpx;" src="/assets/icon/description.png" mode="aspectFill" />
+      <text>赛制介绍</text>
+    </view>
+  </view>
+
+  <view class="other-box">
+    <van-cell-group>
+      <van-cell title="产品建议" is-link />
+      <van-cell title="推荐朋友" is-link />
+    </van-cell-group>
+  </view>
+</view>
