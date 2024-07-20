@@ -12,7 +12,7 @@ const raceSchemeStoreBehavior = BehaviorWithStore({
     {
       store: raceSchemeStore,
       fields: { raceSchemeList: "raceSchemeList" },
-      actions: { setRaceSchemeList: "setRaceSchemeList",getRaceSchemeListByMainType:"getRaceSchemeListByMainType" }
+      actions: { setRaceSchemeList: "setRaceSchemeList", getRaceSchemeListByMainType: "getRaceSchemeListByMainType" }
     },
 
   ],
@@ -122,7 +122,7 @@ Page({
         raceSchemeVOList: [...tempList]
       })
     }
-    console.log("this.data.formData",this.data.formData)
+    console.log("this.data.formData", this.data.formData)
   },
 
   /**
@@ -207,7 +207,7 @@ Page({
       raceAddress: this.data.formData.raceAddress,
       addContext: this.data.formData.addContext
     }
-    console.log("formatData",formData)
+    console.log("formatData", formData)
     if (formData.raceTitle == "") {
       Toast.fail('缺少比赛名称');
       return
@@ -217,10 +217,10 @@ Page({
     if (formData.raceId != undefined) {
       // update
       res = await $api.raceApi.editRace(formData)
-      console.log("editRace",res.data)
+      console.log("editRace", res.data)
     } else {
       res = await $api.raceApi.createRace(formData)
-      console.log("createRace",res.data)
+      console.log("createRace", res.data)
     }
     if (res.code == 0) {
       wx.reLaunch({
