@@ -13,7 +13,8 @@ Page({
       { tabName: "俱乐部", tabType: 3 },
     ],
     raceList: [] as RaceInfo[],
-    triggered: false
+    triggered: false,
+    canRefresherEnable: true,
   },
   onLoad() {
     checkHasLogined().then((isLogin: boolean) => {
@@ -46,5 +47,17 @@ Page({
     this.setData({
       triggered: false
     })
+  },
+  onScroll(event: WechatMiniprogram.TouchEvent) {
+    console.log(event.detail.scrollTop)
+    if (event.detail.scrollTop <= 45) {
+      this.setData({
+        canRefresherEnable: true
+      })
+    } else {
+      this.setData({
+        canRefresherEnable: false
+      })
+    }
   },
 })

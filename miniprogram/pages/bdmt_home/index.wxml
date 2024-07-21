@@ -2,11 +2,11 @@
 <view>
   <van-tabs swipeable sticky active="{{ activeIndex }}" bind:change="onTabChange">
 
-    <scroll-view scroll-y refresher-enabled show-scrollbar="{{false}}" bindrefresherrefresh="getRaceList"	 refresher-triggered="{{triggered}}" >
+    <scroll-view scroll-y refresher-enabled="{{canRefresherEnable}}" show-scrollbar="{{false}}" bindrefresherrefresh="getRaceList"	 refresher-triggered="{{triggered}}" bind:scroll="onScroll" class="scroll-view-box">
     
       <block wx:for="{{tabList}}" wx:for-item="tabItem" wx:key="tabItem">
         <van-tab title="{{tabItem.tabName}}">
-          <view class="card-container" wx:if="{{tabItem.tabType == 1}}">
+          <view wx:if="{{tabItem.tabType == 1}}">
             <block wx:for="{{raceList}}" wx:for-item="raceItem" wx:key="raceItem">
               <race-info-card raceItem="{{raceItem}}"></race-info-card>
             </block>

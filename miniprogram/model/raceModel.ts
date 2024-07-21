@@ -9,7 +9,7 @@ interface RaceScheme {
   raceScheme: string;
   simpleDesc: string;
   detailDesc: string;
-  perSessionNum: number;
+  fieldAccommodatePlayerNum: number;
   minPlayers: number;
 }
 

@@ -81,7 +81,8 @@
       <!-- 人数 -->
       <view class="flex-row">
         <view style="flex: 1;">人数: </view>
-        <view style="flex: 3;">{{raceInfo.applicants.length}} 人</view>
+        <view style="flex: 1;">{{raceInfo.applicants.length}} 人</view>
+        <view style="flex: 2;">{{Trans.raceMainTypeTrans(raceInfo.raceMainType)}}，{{raceInfo.raceScheme.raceScheme}}</view>
       </view>
       <!-- 场次 -->
       <view class="flex-row">
@@ -89,7 +90,7 @@
         <view style="flex: 4;">
           <radio-group bindchange="">
             <block wx:for="{{showDataSessions}}" wx:key="session" wx:for-item="session">
-              <radio color="green" value="{{sessionIndex}}" checked="{{index==0}}">每人{{session}}场，总共{{session*raceInfo.applicants.length/4}}场</radio>
+              <radio color="green" value="{{sessionIndex}}" checked="{{index==0}}">每人{{session}}场，总共{{session*raceInfo.applicants.length/(raceInfo.raceScheme.fieldAccommodatePlayerNum/2)}}场</radio>
             </block>
           </radio-group>
         </view>

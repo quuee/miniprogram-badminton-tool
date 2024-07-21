@@ -5,7 +5,7 @@ import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
 // import { ComponentWithStore } from 'mobx-miniprogram-bindings'
 import { raceStore, raceStoreBehavior } from '../../store/raceStore'
 import { MyAwesomeData, RaceFormData, RaceInfo } from '../../model'
-import { getDoublePlayerSession, calcFieldNum } from "../../utils/race_util"
+import { getDoublePlayerSession, calcFieldNum, getSinglePlayerSession } from "../../utils/race_util"
 import { formatDate, formatDateTime } from '../../utils/datetime_util';
 
 Component({
@@ -91,16 +91,22 @@ Component({
         Toast.fail("人数少于" + raceStore.raceInfo.raceScheme.minPlayers)
         return
       }
-      this.setData({
-        showStartRace: true
-      })
+      let sessions: number[] = [];
+      let fieldNum: number = 1;
+      if (raceStore.raceInfo.raceMainType == 1) {
+        sessions = getDoublePlayerSession(raceStore.raceInfo.applicants.length)
+        fieldNum = calcFieldNum(raceStore.raceInfo.applicants.length,
+          raceStore.raceInfo.raceScheme.fieldAccommodatePlayerNum)
+      }else if(raceStore.raceInfo.raceMainType == 2){
+        sessions = getSinglePlayerSession(raceStore.raceInfo.applicants.length)
+        fieldNum = calcFieldNum(raceStore.raceInfo.applicants.length,
+          raceStore.raceInfo.raceScheme.fieldAccommodatePlayerNum)
+      }
 
-      let sessions: number[] = getDoublePlayerSession(raceStore.raceInfo.applicants.length)
-      let fieldNum: number = calcFieldNum(raceStore.raceInfo.applicants.length,
-        raceStore.raceInfo.raceScheme.perSessionNum)
       // console.log("sessions",sessions)
       // console.log("fieldNum",fieldNum)
       this.setData({
+        showStartRace: true,
         showDataSessions: sessions,
         showDatafieldNum: fieldNum,
       })
@@ -134,14 +140,14 @@ Component({
     },
     async clickDeleteRace() {
       const res: MyAwesomeData<any> = await $api.raceApi.cancleRace(this.data.raceId)
-      if(res.code==0){
+      if (res.code == 0) {
         wx.reLaunch({
-          url:"/pages/bdmt_home/index"
+          url: "/pages/bdmt_home/index"
         })
-      }else{
+      } else {
         Toast.fail(res.msg)
       }
-      
+
     },
     onScroll(event: WechatMiniprogram.TouchEvent) {
       console.log(event.detail.scrollTop)
