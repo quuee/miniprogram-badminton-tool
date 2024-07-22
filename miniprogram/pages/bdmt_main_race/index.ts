@@ -1,5 +1,7 @@
 // pages/bdmt_main_race/index.ts
-
+// import { raceBattleStore } from '../../store/raceBattleStore'
+// import { raceStore } from "../../store/raceStore"
+// import $api from '../../service/index'
 Page({
 
   /**
@@ -14,7 +16,7 @@ Page({
     //   { tabName: "裁判", tabType: 4 },
     // ],
     showStartRace: false,
-    raceId: null
+    raceId: 0
   },
 
 
@@ -27,12 +29,13 @@ Page({
       raceId: options.raceId
     })
   },
-  onTabChange(event: WechatMiniprogram.TouchEvent) {
-    console.log("onTabChange", event)
-    // 每次切换tab时触发
+  onShow(){
+
   },
+
   changeTab(event: any) {
-    console.log("changeTab", event.detail)
+    console.log("main_race triggerEvent() changeTab", event.detail)
+    //triggerEvent() 传过来的参数是event.detail
     this.setData({
       activeIndex: event.detail
     })

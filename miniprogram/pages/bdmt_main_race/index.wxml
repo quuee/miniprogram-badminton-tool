@@ -1,19 +1,25 @@
 <!--pages/bdmt_main_race/index.wxml-->
 <van-toast id="van-toast" />
 <van-dialog id="van-dialog" />
-<van-tabs sticky active="{{ activeIndex }}" bind:change="onTabChange">
-
+<van-tabs sticky lazy-render active="{{ activeIndex }}">
   <van-tab title="概览">
-    <race-overview bindgotoRaceTab="changeTab" raceId="{{raceId}}" />
+    <block wx:if="{{activeIndex == 0}}">
+      <race-overview bindgotoRaceTab="changeTab" raceId="{{raceId}}" />
+    </block>
   </van-tab>
   <van-tab title="排名">
-    <race-rank raceId="{{raceId}}" />
+    <block wx:if="{{activeIndex == 1}}">
+      <race-rank raceId="{{raceId}}" />
+    </block>
   </van-tab>
   <van-tab title="对阵">
-    <race-battle bindgotoRaceTab="changeTab" raceId="{{raceId}}" />
+    <block wx:if="{{activeIndex == 2}}">
+      <race-battle bindgotoRaceTab="changeTab" raceId="{{raceId}}" />
+    </block>
   </van-tab>
   <van-tab title="裁判">
-    <race-referee raceId="{{raceId}}" />
+    <block wx:if="{{activeIndex == 3}}">
+      <race-referee raceId="{{raceId}}" />
+    </block>
   </van-tab>
-
 </van-tabs>

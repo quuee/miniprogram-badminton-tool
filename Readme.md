@@ -53,3 +53,4 @@ pages:[
 
 ## 问题
 ### 未登录的情况下进入小程序 不会查询首页比赛列表
+### vant weapp切换tab时刷新tab，结合mobx-miniprogram。tab标签里的内容是其他组件

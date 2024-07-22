@@ -281,7 +281,6 @@ Page({
     })
     this.onClosePopup()
   },
-
   onAddressBlur(event: WechatMiniprogram.TouchEvent) {
     this.setData({
       "formData.raceAddress": event.detail.value

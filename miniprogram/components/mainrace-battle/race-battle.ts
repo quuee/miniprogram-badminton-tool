@@ -31,7 +31,8 @@ const raceBattleStoreBehavior = BehaviorWithStore({
   ],
   pageLifetimes: {
     show: function () {
-      console.log("raceBattleBehaviorStore pageLifetimes show")
+      console.log("raceBattleStoreBehavior pageLifetimes show")
+      
     }
   }
 })
@@ -48,19 +49,17 @@ Component({
     }
   },
 
+
   lifetimes: {
     attached: function () {
       // 在组件实例进入页面节点树时执行
       // 拿不到页面onload方法的参数，组件比页面先一步创建实例
     },
     ready: function () {
-
-      this.setData({
-        raceId: this.properties.raceId
-      })
       this.load()
-    }
+    },
   },
+
 
   /**
    * 组件的初始数据
@@ -69,7 +68,6 @@ Component({
     selectPlayers: [] as UserInfo[],
     triggered: false,
     canRefresherEnable: true,
-    raceId: 0,
     tempBattles: [] as RaceBattle[]
   },
 
@@ -78,7 +76,7 @@ Component({
    */
   methods: {
     load() {
-      $api.raceApi.getRaceBattles(this.data.raceId)
+      $api.raceApi.getRaceBattles(this.properties.raceId)
         .then((res) => {
           if (res.code == 0) {
             raceBattleStore.setRaceBattles(res.data)
@@ -242,6 +240,7 @@ Component({
         tempBattles: filterBattleArr,
       })
 
-    }
+    },
+
   }
 })

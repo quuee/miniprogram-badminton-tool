@@ -30,7 +30,6 @@ Component({
     sessionIndex: 0,
     actualFieldNum: 1,
 
-    raceId: 0,
     triggered: false,
     canRefresherEnable: true,
   },
@@ -40,9 +39,6 @@ Component({
       // 拿不到页面onload方法的参数，组件比页面先一步创建实例
     },
     ready: function () {
-      this.setData({
-        raceId: this.properties.raceId
-      })
       this.load()
     }
   },
@@ -52,7 +48,7 @@ Component({
    */
   methods: {
     load() {
-      $api.raceApi.getRaceInfo(this.data.raceId).then((res: MyAwesomeData<RaceInfo>) => {
+      $api.raceApi.getRaceInfo(this.properties.raceId).then((res: MyAwesomeData<RaceInfo>) => {
         if (res.code == 0) {
           raceStore.setRaceInfo(res.data)
         }
@@ -133,8 +129,9 @@ Component({
       $api.raceApi.startRace(param).then((res) => {
         console.log("clickStartRace", res)
         if (res.code == 0) {
-          // 跳转到对阵tab
+          // 跳转到对阵tab标签页，并加载数据更新UI界面
           this.triggerEvent('gotoRaceTab', 2)
+          // 开启按钮disable
         }
       })
     },

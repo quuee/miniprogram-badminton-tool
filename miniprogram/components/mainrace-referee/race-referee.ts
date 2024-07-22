@@ -22,7 +22,7 @@ Component({
       // 拿不到页面onload方法的参数，组件比页面先一步创建实例
     },
     ready: function () {
-      this.load(this.properties.raceId)
+      this.load()
     }
   },
   pageLifetimes:{
@@ -35,6 +35,8 @@ Component({
    * 组件的初始数据
    */
   data: {
+    triggered: false,
+    canRefresherEnable: true,
 
   },
 
@@ -42,8 +44,8 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    load(raceId: number) {
-      $api.raceApi.getRaceReferee(raceId)
+    load() {
+      $api.raceApi.getRaceReferee(this.properties.raceId)
         .then((res) => {
           if (res.code == 0) {
             // console.log("getRaceTrials",res.data)
@@ -52,6 +54,27 @@ Component({
         })
 
       
-    }
+    },
+    refresh() {
+      this.setData({
+        triggered: true
+      })
+      this.load()
+      this.setData({
+        triggered: false
+      })
+    },
+    onScroll(event: WechatMiniprogram.TouchEvent) {
+      console.log(event.detail.scrollTop)
+      if (event.detail.scrollTop <= 45) {
+        this.setData({
+          canRefresherEnable: true
+        })
+      } else {
+        this.setData({
+          canRefresherEnable: false
+        })
+      }
+    },
   }
 })

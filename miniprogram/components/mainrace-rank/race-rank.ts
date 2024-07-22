@@ -22,9 +22,6 @@ Component({
       // 拿不到页面onload方法的参数，组件比页面先一步创建实例
     },
     ready: function () {
-      this.setData({
-        raceId: this.properties.raceId
-      })
       this.load()
     }
   },
@@ -34,7 +31,6 @@ Component({
    */
   data: {
 
-    raceId: 0,
     triggered: false,
     canRefresherEnable: true,
     switchChoose: false,
@@ -47,7 +43,7 @@ Component({
    */
   methods: {
     load() {
-      $api.raceApi.getRaceRanks(this.data.raceId)
+      $api.raceApi.getRaceRanks(this.properties.raceId)
         .then((res) => {
           if (res.code == 0) {
             raceRankStore.setRaceRanks(res.data)
