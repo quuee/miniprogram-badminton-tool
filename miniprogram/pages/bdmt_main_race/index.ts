@@ -32,7 +32,13 @@ Page({
   onShow(){
 
   },
-
+  onTabChange(event: WechatMiniprogram.TouchEvent) {
+    console.log("main_race onTabChange", event)
+    // 每次切换tab时触发
+    this.setData({
+      activeIndex: event.detail.index
+    })
+  },
   changeTab(event: any) {
     console.log("main_race triggerEvent() changeTab", event.detail)
     //triggerEvent() 传过来的参数是event.detail

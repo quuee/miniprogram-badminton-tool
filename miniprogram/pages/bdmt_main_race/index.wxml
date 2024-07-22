@@ -1,7 +1,7 @@
 <!--pages/bdmt_main_race/index.wxml-->
 <van-toast id="van-toast" />
 <van-dialog id="van-dialog" />
-<van-tabs sticky lazy-render active="{{ activeIndex }}">
+<van-tabs sticky lazy-render active="{{ activeIndex }}" bind:change="onTabChange">
   <van-tab title="概览">
     <block wx:if="{{activeIndex == 0}}">
       <race-overview bindgotoRaceTab="changeTab" raceId="{{raceId}}" />
