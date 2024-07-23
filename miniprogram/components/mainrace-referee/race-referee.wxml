@@ -1,21 +1,35 @@
 <!--components/mainrace-trial/race-trial.wxml-->
-<scroll-view scroll-y refresher-enabled="{{canRefresherEnable}}" show-scrollbar="{{false}}" bindrefresherrefresh="refresh" refresher-triggered="{{triggered}}" bind:scroll="onScroll" class="scroll-view-box">
-  <view class="flex-column referee-box">
-    <block wx:for="{{raceReferees}}" wx:for-item="referee" wx:key="uid">
-      <view class="referee-item-box flex-row">
-        <avatar-circle avatarUrl="{{referee.avatarUrl}}" />
-        <view>
-          {{index+1}}号裁判，{{referee.nickName}}，{{referee.gender}}，{{referee.level}}
-        </view>
-        <view>
-          {{referee.master?"已判N场":"待审核"}}
-        </view>
-        <block wx:if="{{!referee.master}}">
-          <van-button type="default">通过</van-button>
-        </block>
-        <van-divider />
-      </view>
-    </block>
+<wxs module="Trans" src="../../utils/state_trans.wxs"></wxs>
 
+<view class="referee-container">
+  <scroll-view scroll-y refresher-enabled="{{canRefresherEnable}}" show-scrollbar="{{false}}" bindrefresherrefresh="refresh" refresher-triggered="{{triggered}}" bind:scroll="onScroll" class="scroll-view-box">
+    <view class="flex-column referee-box">
+      <block wx:for="{{raceReferees}}" wx:for-item="referee" wx:key="uid">
+        <view class="flex-row">
+          <view class="referee-item-box flex-row" style="flex: 5;">
+            <avatar-circle avatarUrl="{{referee.avatarUrl}}" />
+            <view class="flex-row">
+              {{index+1}}号裁判，{{referee.nickName}}，
+              <image style="width: 30rpx;height: 30rpx;" src="{{Trans.userGenderTrans(referee.gender)}}" mode="aspectFit" />，
+              {{Trans.levelTrans(referee.level)}}
+            </view>
+            <view>
+              {{referee.master?"":"待审核"}}
+            </view>
+            <van-button wx:if="{{!referee.master}}" type="default">通过</van-button>
+          </view>
+          <van-icon style="flex: 1;" name="delete-o" wx:if="{{showRefereeRemove}}" bind:tap="removeReferee" mark:uid="{{referee.uid}}" color="#00EE76" size="24px" />
+        </view>
+      </block>
+    </view>
+  </scroll-view>
+
+  <view class="bottom-box">
+    <view class="button-action">
+      <van-button type="primary">
+        <van-icon name="plus" />邀请
+      </van-button>
+      <van-button plain hairline type="primary" bind:tap="manageRefereess">{{showRefereeRemove?"退出管理":"管理裁判"}}</van-button>
+    </view>
   </view>
-</scroll-view>
+</view>

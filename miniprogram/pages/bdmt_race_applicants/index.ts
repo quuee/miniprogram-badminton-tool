@@ -8,7 +8,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    applicants: [] as UserInfo[]
+    applicants: [] as UserInfo[],
+
+    triggered: false,
+    canRefresherEnable: true,
+    showPalyerRemove: false
   },
 
   /**
@@ -44,31 +48,33 @@ Page({
 
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
+  refresh() {
+    this.setData({
+      triggered: true
+    })
+    // this.load()
+    this.setData({
+      triggered: false
+    })
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
+  onScroll(event: WechatMiniprogram.TouchEvent) {
+    console.log(event.detail.scrollTop)
+    if (event.detail.scrollTop <= 45) {
+      this.setData({
+        canRefresherEnable: true
+      })
+    } else {
+      this.setData({
+        canRefresherEnable: false
+      })
+    }
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
+  managePlayers(){
+    this.setData({
+      showPalyerRemove: !this.data.showPalyerRemove
+    })
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
+  removePlayer(event: WechatMiniprogram.TouchEvent){
 
   }
 })

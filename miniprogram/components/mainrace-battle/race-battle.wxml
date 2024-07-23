@@ -13,7 +13,7 @@
             <avatar-circle bind:tap="selectPalyerBattle" mark:uid="{{battle.player2.uid}}" avatarUrl="{{battle.player2.avatarUrl}}" />
           </view>
           <!--昵称-->
-          <view class="text-container">{{battle.player1.nickName}} & {{battle.player2.nickName}}</view>
+          <view class="text-container">{{battle.player1.nickName}} {{battle.player2!=undefined?"&":""}} {{battle.player2.nickName}}</view>
         </view>
 
         <view>VS</view>
@@ -26,7 +26,7 @@
             <avatar-circle bind:tap="selectPalyerBattle" mark:uid="{{battle.player4.uid}}" avatarUrl="{{battle.player4.avatarUrl}}" />
           </view>
           <!--昵称-->
-          <view class="text-container">{{battle.player3.nickName}} & {{battle.player4.nickName}}</view>
+          <view class="text-container">{{battle.player3.nickName}} {{battle.player4!=undefined?"&":""}} {{battle.player4.nickName}}</view>
         </view>
 
         <!--场次/比分-->

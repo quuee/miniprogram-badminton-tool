@@ -1,20 +1,39 @@
 <!--pages/bdmt_race_applicants/index.wxml-->
 <wxs module="Trans" src="../../utils/state_trans.wxs"></wxs>
-<view class="flex-column player-box">
-  <block wx:for="{{applicants}}" wx:for-item="player" wx:key="uid">
-    <view class="palyer-item-box flex-row">
-      <avatar-circle avatarUrl="{{player.avatarUrl}}" />
-      <view> {{index}}号，{{player.nickName}}，{{player.gender}}，{{player.level}}</view>
-      <van-divider />
+
+<view class="applicants-container">
+
+  <scroll-view scroll-y refresher-enabled="{{canRefresherEnable}}" show-scrollbar="{{false}}" bindrefresherrefresh="refresh" refresher-triggered="{{triggered}}" bind:scroll="onScroll" class="scroll-view-box">
+    <view class="flex-column player-box">
+      <block wx:for="{{applicants}}" wx:for-item="player" wx:key="uid">
+        <view class="flex-row">
+
+          <view class="palyer-item-box flex-row" style="flex: 5;">
+            <avatar-circle avatarUrl="{{player.avatarUrl}}" />
+            <view>
+              {{index+1}}号，
+              {{player.nickName}}，
+              <image style="width: 30rpx;height: 30rpx;" src="{{Trans.userGenderTrans(player.gender)}}" mode="aspectFit" />，
+              {{Trans.levelTrans(player.level)}}
+            </view>
+
+          </view>
+          <van-icon style="flex: 1;" name="delete-o" wx:if="{{showPalyerRemove}}" bind:tap="removePlayer" mark:uid="{{player.uid}}" color="#00CD66" size="24px" />
+        </view>
+
+        <van-divider></van-divider>
+      </block>
+
     </view>
-  </block>
+  </scroll-view>
 
-</view>
-
-<view class="bottom-box">
-  <view class="button-action">
-    <van-button type="primary">抽签</van-button>
-    <van-button plain hairline type="primary">管理选手</van-button>
+  <view class="bottom-box">
+    <view class="button-action">
+      <van-button type="primary">
+        <van-icon name="plus" />邀请
+      </van-button>
+      <van-button plain hairline type="primary" bind:tap="managePlayers">{{showPalyerRemove?"退出管理":"管理选手"}}</van-button>
+    </view>
   </view>
 
 </view>

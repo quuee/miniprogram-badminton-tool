@@ -38,6 +38,7 @@ Component({
     triggered: false,
     canRefresherEnable: true,
 
+    showRefereeRemove:false
   },
 
   /**
@@ -76,5 +77,13 @@ Component({
         })
       }
     },
+    manageRefereess(){
+      this.setData({
+        showRefereeRemove: !this.data.showRefereeRemove
+      })
+    },
+    removeReferee(event:WechatMiniprogram.TouchEvent){
+      
+    }
   }
 })
