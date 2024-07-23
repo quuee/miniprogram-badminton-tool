@@ -167,9 +167,15 @@ Component({
       selectPArr.forEach((selected) => {
         const filterArr = raceBattleStore.raceBattles.filter((item) => {
           const f1 = item.player1.uid == selected.uid
-          const f2 = item.player2.uid == selected.uid
+          let f2 = false;
+          if(item.player2 != undefined){
+            f2 = item.player2.uid == selected.uid
+          }
           const f3 = item.player3.uid == selected.uid
-          const f4 = item.player4.uid == selected.uid
+          let f4 = false;
+          if(item.player4 != undefined){
+            f4 = item.player4.uid == selected.uid
+          }
           if (f1 || f2 || f3 || f4) {
             return true
           }
@@ -211,9 +217,15 @@ Component({
       fliterPlayerArr.forEach((selected) => {
         const filterArr = raceBattleStore.raceBattles.filter((item) => {
           const f1 = item.player1.uid == selected.uid
-          const f2 = item.player2.uid == selected.uid
+          let f2 = false;
+          if(item.player2 != undefined){
+            f2 = item.player2.uid == selected.uid
+          }
           const f3 = item.player3.uid == selected.uid
-          const f4 = item.player4.uid == selected.uid
+          let f4 = false;
+          if(item.player4 != undefined){
+            f4 = item.player4.uid == selected.uid
+          }
           if (f1 || f2 || f3 || f4) {
             return true
           }

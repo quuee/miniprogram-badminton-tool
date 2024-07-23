@@ -53,4 +53,4 @@ pages:[
 
 ## 问题
 ### 未登录的情况下进入小程序 不会查询首页比赛列表
-### vant weapp tab跳转到其他tab，渲染ui界面
+### vant weapp tab跳转到其他tab，渲染ui界面(貌似解决)
