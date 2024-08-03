@@ -1,3 +1,7 @@
+// import Toast from '../../miniprogram_npm/@vant/weapp/toast/toast';
+
+import Toast from "../miniprogram_npm/@vant/weapp/toast/toast";
+
 Component({
   options: {
     multipleSlots: true // 在组件定义时的选项中启用多slot支持
@@ -75,6 +79,12 @@ Component({
       wx.navigateTo({
         url: '/pages/bdmt_choose_race/index',
       })
+    },
+    clickLaunchActivity(){
+      Toast.fail("功能待实现")
+    },
+    clickLaunchClub(){
+      Toast.fail("功能待实现")
     }
   }
 })

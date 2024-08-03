@@ -110,12 +110,6 @@ Page({
       title:"邀请参赛",
       imageUrl:"",
       path:"/pages/bdmt_main_race/index?raceId="+raceStore.raceInfo.raceId,
-      success: function (res:any){
-
-      },
-      fail: function(res:any){
-
-      }
     }
   }
 })

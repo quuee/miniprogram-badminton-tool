@@ -18,3 +18,5 @@
     
   </van-tabs>
 </view>
+
+<van-toast id="van-toast" />

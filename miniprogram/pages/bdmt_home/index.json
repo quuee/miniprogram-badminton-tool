@@ -2,6 +2,7 @@
   "usingComponents": {
     "van-tab": "@vant/weapp/tab/index",
     "van-tabs": "@vant/weapp/tabs/index",
+    "van-toast": "@vant/weapp/toast/index",
     "race-info-card":"/components/race-info-card/race-info-car"
   },
   "navigationBarTitleText": "羽毛球助手",

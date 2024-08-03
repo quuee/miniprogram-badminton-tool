@@ -1,3 +1,4 @@
+
 <view class="custom-tabbar flex-row">
   <block wx:for="{{tabbarList}}" wx:for-item="item" wx:key="item">
     <!-- 中间的半圆 -->
@@ -16,7 +17,7 @@
   <van-action-sheet show="{{ actionSheetShow }}" description="请选择一个实例" bind:close="onSheetClose">
     <view class="sheet-container">
       <View class="flex-column">
-        <image src="../assets/icon/activity.png" bind:tap="" />
+        <image src="../assets/icon/activity.png" bind:tap="clickLaunchActivity" />
         <text>活动</text>
       </View>
       <view class="flex-column">
@@ -24,7 +25,7 @@
         <text>比赛</text>
       </view>
       <view class="flex-column">
-        <image src="../assets/icon/club.png" bind:tap="" />
+        <image src="../assets/icon/club.png" bind:tap="clickLaunchClub" />
         <text>俱乐部</text>
       </view>
     </view>
