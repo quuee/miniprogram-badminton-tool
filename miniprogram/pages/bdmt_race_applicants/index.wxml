@@ -29,9 +29,9 @@
 
   <view class="bottom-box">
     <view class="button-action">
-      <van-button type="primary">
+      <van-button type="primary" open-type="share" bind:tap="onShareAppMessage">
         <van-icon name="plus" />邀请
-      </van-button>
+      </van-button> 
       <van-button plain hairline type="primary" bind:tap="managePlayers">{{showPalyerRemove?"退出管理":"管理选手"}}</van-button>
     </view>
   </view>

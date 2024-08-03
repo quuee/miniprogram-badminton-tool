@@ -99,5 +99,23 @@ Page({
       // raceStore.updateRaceApplicants(filterArr)
     }
 
+  },
+  onShareAppMessage(res:any){
+    console.log("onShareAppMessage",res)
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title:"邀请参赛",
+      imageUrl:"",
+      path:"/pages/bdmt_main_race/index?raceId="+raceStore.raceInfo.raceId,
+      success: function (res:any){
+
+      },
+      fail: function(res:any){
+
+      }
+    }
   }
 })
