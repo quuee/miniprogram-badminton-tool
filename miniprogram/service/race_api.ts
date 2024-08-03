@@ -95,7 +95,10 @@ export default class raceApi {
     )
   }
 
-  // 获取比赛对阵信息
+  /**
+   * 获取比赛对阵信息
+   * @param raceId 
+   */
   static getRaceBattles = (raceId: number): Promise<MyAwesomeData<Array<RaceBattle>>> => {
     const token = wx.getStorageSync("localToken")
     return httpRequest.get<Array<RaceBattle>>(
@@ -105,7 +108,10 @@ export default class raceApi {
     )
   }
 
-  // 获取比赛排名信息
+  /**
+   * 获取比赛排名信息
+   * @param raceId 
+   */
   static getRaceRanks = (raceId: number): Promise<MyAwesomeData<Array<RaceRank>>> => {
     const token = wx.getStorageSync("localToken")
     return httpRequest.get<Array<RaceRank>>(
@@ -115,7 +121,10 @@ export default class raceApi {
     )
   }
 
-  // 获取比赛裁判
+  /**
+   * 获取比赛裁判
+   * @param raceId 
+   */
   static getRaceReferee = (raceId: number): Promise<MyAwesomeData<Array<Referee>>> => {
     const token = wx.getStorageSync("localToken")
     return httpRequest.get<Array<Referee>>(
@@ -137,11 +146,40 @@ export default class raceApi {
       { header: { ["Authorization"]: token } }
     )
   }
-  // 修改比分
+  /**
+   * 修改比分
+   * @param data 
+   */
   static editBattleScore = (data: any): Promise<MyAwesomeData<any>> => {
     const token = wx.getStorageSync("localToken")
     return httpRequest.post<any>(
       baseUrl + `/raceInfo/editBattleScore`,
+      data,
+      { header: { ["Authorization"]: token } }
+    )
+  }
+
+  /**
+   * 删除比赛中的选手
+   * @param data 
+   */
+  static deletePlayer = (data: any): Promise<MyAwesomeData<any>> => {
+    const token = wx.getStorageSync("localToken")
+    return httpRequest.delete<any>(
+      baseUrl + `/raceInfo/deletePlayer`,
+      data,
+      { header: { ["Authorization"]: token } }
+    )
+  }
+
+    /**
+   * 删除比赛中的裁判
+   * @param data 
+   */
+  static deleteReferee = (data: any): Promise<MyAwesomeData<any>> => {
+    const token = wx.getStorageSync("localToken")
+    return httpRequest.delete<any>(
+      baseUrl + `/raceInfo/deleteReferee`,
       data,
       { header: { ["Authorization"]: token } }
     )

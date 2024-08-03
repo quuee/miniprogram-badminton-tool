@@ -67,5 +67,15 @@ Page({
         allBattleStatistics : resStatics.data
       })
     }
+  },
+  toEditUserInfo(){
+    wx.navigateTo({
+      url:"/pages/index/index"
+    })
+  },
+  toRaceHistory(){
+    wx.navigateTo({
+      url:"/pages/bdmt_race_history/index"
+    })
   }
 })

@@ -1,5 +1,5 @@
 import { observable, action } from 'mobx-miniprogram'
-import { RaceInfo } from '../model'
+import { RaceInfo, UserInfo } from '../model'
 import { BehaviorWithStore } from "mobx-miniprogram-bindings"
 
 
@@ -10,6 +10,9 @@ const raceStore = observable({
   setRaceInfo: action(function (this: any, data: RaceInfo) {
     this.raceInfo = data
   }),
+  // updateRaceApplicants: action(function(data:Array<UserInfo>){
+  //   raceStore.raceInfo.applicants = data
+  // })
 
 })
 

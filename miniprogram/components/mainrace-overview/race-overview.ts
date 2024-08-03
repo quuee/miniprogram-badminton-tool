@@ -40,6 +40,14 @@ Component({
     },
     ready: function () {
       this.load()
+    },
+    
+  },
+  pageLifetimes:{
+    //组件所在的页面被展示时执行
+    show(){
+      // 跳转到其他页面，更新了store内的数据，但是页面没有更新，这个show方法重新加载数据
+      this.load()
     }
   },
 

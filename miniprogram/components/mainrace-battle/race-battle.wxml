@@ -10,7 +10,7 @@
           <view class="flex-row">
             <!--头像-->
             <avatar-circle bind:tap="selectPalyerBattle" mark:uid="{{battle.player1.uid}}" avatarUrl="{{battle.player1.avatarUrl}}" />
-            <avatar-circle bind:tap="selectPalyerBattle" mark:uid="{{battle.player2.uid}}" avatarUrl="{{battle.player2.avatarUrl}}" />
+            <avatar-circle wx:if="{{battle.player2}}" bind:tap="selectPalyerBattle" mark:uid="{{battle.player2.uid}}" avatarUrl="{{battle.player2.avatarUrl}}" />
           </view>
           <!--昵称-->
           <view class="text-container">{{battle.player1.nickName}} {{battle.player2!=undefined?"&":""}} {{battle.player2.nickName}}</view>
@@ -23,7 +23,7 @@
           <view class="flex-row">
             <!--头像-->
             <avatar-circle bind:tap="selectPalyerBattle" mark:uid="{{battle.player3.uid}}" avatarUrl="{{battle.player3.avatarUrl}}" />
-            <avatar-circle bind:tap="selectPalyerBattle" mark:uid="{{battle.player4.uid}}" avatarUrl="{{battle.player4.avatarUrl}}" />
+            <avatar-circle wx:if="{{battle.player2}}" bind:tap="selectPalyerBattle" mark:uid="{{battle.player4.uid}}" avatarUrl="{{battle.player4.avatarUrl}}" />
           </view>
           <!--昵称-->
           <view class="text-container">{{battle.player3.nickName}} {{battle.player4!=undefined?"&":""}} {{battle.player4.nickName}}</view>

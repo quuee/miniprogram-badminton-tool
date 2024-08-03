@@ -18,7 +18,7 @@
             </view>
             <van-button wx:if="{{!referee.master}}" type="default">通过</van-button>
           </view>
-          <van-icon style="flex: 1;" name="delete-o" wx:if="{{showRefereeRemove}}" bind:tap="removeReferee" mark:uid="{{referee.uid}}" color="#00EE76" size="24px" />
+          <van-icon style="flex: 1;" name="delete-o" wx:if="{{showRefereeRemove}}" bind:tap="removeReferee" mark:refereeId="{{referee.uid}}" color="#00EE76" size="24px" />
         </view>
       </block>
     </view>

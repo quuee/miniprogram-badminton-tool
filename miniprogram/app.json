@@ -7,6 +7,7 @@
     "pages/bdmt_main_race/index",
     "pages/bdmt_race_applicants/index",
     "pages/bdmt_race_battle_record/index",
+    "pages/bdmt_race_history/index",
 
     "pages/index/index",
     "pages/logs/logs"

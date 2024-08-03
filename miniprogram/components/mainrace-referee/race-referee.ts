@@ -25,9 +25,9 @@ Component({
       this.load()
     }
   },
-  pageLifetimes:{
-    show: function(){
-      // this.load(this.properties.raceId)
+  pageLifetimes: {
+    show: function () {
+      // this.load()
     }
   },
 
@@ -38,7 +38,7 @@ Component({
     triggered: false,
     canRefresherEnable: true,
 
-    showRefereeRemove:false
+    showRefereeRemove: false
   },
 
   /**
@@ -54,7 +54,6 @@ Component({
           }
         })
 
-      
     },
     refresh() {
       this.setData({
@@ -66,7 +65,7 @@ Component({
       })
     },
     onScroll(event: WechatMiniprogram.TouchEvent) {
-      console.log(event.detail.scrollTop)
+      // console.log(event.detail.scrollTop)
       if (event.detail.scrollTop <= 45) {
         this.setData({
           canRefresherEnable: true
@@ -77,13 +76,28 @@ Component({
         })
       }
     },
-    manageRefereess(){
+    manageRefereess() {
       this.setData({
         showRefereeRemove: !this.data.showRefereeRemove
       })
     },
-    removeReferee(event:WechatMiniprogram.TouchEvent){
-      
+    async removeReferee(event: WechatMiniprogram.TouchEvent) {
+      console.log("removeReferee", event)
+      const { refereeId } = event.mark || {}
+      let param = {
+        raceId: this.properties.raceId,
+        refereeId: refereeId
+      }
+      const res = await $api.raceApi.deleteReferee(param)
+      if (res.code == 0) {
+        const filterArr = raceRefereeStore.raceReferees.filter((p) => {
+          if (p.uid == refereeId) {
+            return false
+          }
+          return true
+        })
+        raceRefereeStore.setRaceReferees(filterArr)
+      }
     }
   }
 })

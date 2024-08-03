@@ -1,9 +1,11 @@
 // pages/bdmt_race_applicants/index.ts
-
+import $api from '../../service/index'
+import { raceStore, raceStoreBehavior } from '../../store/raceStore'
 import { UserInfo } from '../../model'
 
 Page({
 
+  behaviors: [raceStoreBehavior],
   /**
    * 页面的初始数据
    */
@@ -58,7 +60,7 @@ Page({
     })
   },
   onScroll(event: WechatMiniprogram.TouchEvent) {
-    console.log(event.detail.scrollTop)
+    // console.log(event.detail.scrollTop)
     if (event.detail.scrollTop <= 45) {
       this.setData({
         canRefresherEnable: true
@@ -74,7 +76,28 @@ Page({
       showPalyerRemove: !this.data.showPalyerRemove
     })
   },
-  removePlayer(event: WechatMiniprogram.TouchEvent){
+  async removePlayer(event: WechatMiniprogram.TouchEvent){
+    console.log("removePlayer",event)
+    const {uid} = event.mark || {}
+    let param = {
+      raceId:raceStore.raceInfo.raceId,
+      playerId:uid
+    }
+    const res = await $api.raceApi.deletePlayer(param)
+    if(res.code == 0){
+      const filterArr = this.data.applicants.filter((p)=>{
+        if(p.uid == uid){
+          return false
+        }
+        return true
+      })
+
+      this.setData({
+        applicants : filterArr
+      })
+
+      // raceStore.updateRaceApplicants(filterArr)
+    }
 
   }
 })
