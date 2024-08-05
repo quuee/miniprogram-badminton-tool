@@ -50,7 +50,7 @@ export default class raceApi {
   static cancleRace = (raceId: number): Promise<MyAwesomeData<any>> => {
     const token = wx.getStorageSync("localToken")
     return httpRequest.delete<any>(
-      baseUrl + '/raceInfo/deleteRace?raceId='+raceId,
+      baseUrl + '/raceInfo/cancelRace?raceId='+raceId,
       {},
       { header: { ["Authorization"]: token } }
     )
