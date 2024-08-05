@@ -184,4 +184,18 @@ export default class raceApi {
       { header: { ["Authorization"]: token } }
     )
   }
+
+  /**
+   * 比赛历史
+   * @param playerId 选手id
+   */
+  static getRaceHistory = (playerId:number): Promise<MyAwesomeData<Array<RaceBattle>>> => {
+    const token = wx.getStorageSync("localToken")
+    return httpRequest.get<Array<RaceBattle>>(
+      baseUrl + `/raceInfo/raceHistory?playerId=${playerId}`,
+      {},
+      { header: { ["Authorization"]: token } }
+    )
+  }
+
 }
