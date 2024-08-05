@@ -1,4 +1,4 @@
-import {MyAwesomeData} from "../model/index"
+import { MyAwesomeData } from "../model/index"
 
 export enum HttpMethod {
   GET = 'GET',
