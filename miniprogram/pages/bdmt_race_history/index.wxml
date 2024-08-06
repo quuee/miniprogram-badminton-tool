@@ -1,7 +1,7 @@
 <!--pages/bdmt_race_history/index.wxml-->
 <wxs module="Trans" src="../../utils/state_trans.wxs"></wxs>
 <view class="box">
-  <scroll-view scroll-y refresher-enabled="{{canRefresherEnable}}" show-scrollbar="{{false}}" bindrefresherrefresh="refresh" refresher-triggered="{{triggered}}" bind:scroll="onScroll" class="scroll-view-box">
+  <scroll-view scroll-y refresher-enabled="{{canRefresherEnable}}" show-scrollbar="{{false}}" bindrefresherrefresh="refresh" refresher-triggered="{{triggered}}" bind:scroll="onScroll" bindscrolltolower="loadMore" class="scroll-view-box">
     <block wx:for="{{tempBattles}}" wx:for-item="battle" wx:key="bid">
 
       <view class="battle-box flex-row j_cs">

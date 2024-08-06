@@ -32,7 +32,7 @@ const raceBattleStoreBehavior = BehaviorWithStore({
   pageLifetimes: {
     show: function () {
       console.log("raceBattleStoreBehavior pageLifetimes show")
-      
+
     }
   }
 })
@@ -70,6 +70,11 @@ Component({
     canRefresherEnable: true,
     tempBattles: [] as RaceBattle[]
   },
+  pageLifetimes:{
+    show:function(){
+      this.load()
+    }
+  },
 
   /**
    * 组件的方法列表
@@ -83,6 +88,14 @@ Component({
             this.setData({
               tempBattles: res.data
             })
+          }
+        })
+
+      $api.raceApi.getRaceReferee(this.properties.raceId)
+        .then((res) => {
+          if (res.code == 0) {
+            // console.log("getRaceTrials",res.data)
+            raceRefereeStore.setRaceReferees(res.data)
           }
         })
     },
@@ -102,7 +115,9 @@ Component({
       const userInfo = wx.getStorageSync("userInfo");
       // 不是裁判，点击记分 去裁判页面申请
       // 已经是裁判，点击记分，如果正在比赛中（记分中），可以进去记分页面，需要等完成后才能修改比分
+      // 未初始化raceRefereeStore里的裁判数据，无法判断
       const referreeArr = raceRefereeStore.getReferee(userInfo.uid)
+      console.log("referreeArr", referreeArr)
       if (referreeArr.length == 0) {
         Dialog.confirm({
           title: '申请裁判',
@@ -168,12 +183,12 @@ Component({
         const filterArr = raceBattleStore.raceBattles.filter((item) => {
           const f1 = item.player1.uid == selected.uid
           let f2 = false;
-          if(item.player2 != undefined){
+          if (item.player2 != undefined) {
             f2 = item.player2.uid == selected.uid
           }
           const f3 = item.player3.uid == selected.uid
           let f4 = false;
-          if(item.player4 != undefined){
+          if (item.player4 != undefined) {
             f4 = item.player4.uid == selected.uid
           }
           if (f1 || f2 || f3 || f4) {
@@ -218,12 +233,12 @@ Component({
         const filterArr = raceBattleStore.raceBattles.filter((item) => {
           const f1 = item.player1.uid == selected.uid
           let f2 = false;
-          if(item.player2 != undefined){
+          if (item.player2 != undefined) {
             f2 = item.player2.uid == selected.uid
           }
           const f3 = item.player3.uid == selected.uid
           let f4 = false;
-          if(item.player4 != undefined){
+          if (item.player4 != undefined) {
             f4 = item.player4.uid == selected.uid
           }
           if (f1 || f2 || f3 || f4) {
@@ -243,7 +258,7 @@ Component({
         }
         return item;
       }, [])
-      if(filterBattleArr.length == 0){
+      if (filterBattleArr.length == 0) {
         filterBattleArr = raceBattleStore.raceBattles
       }
 

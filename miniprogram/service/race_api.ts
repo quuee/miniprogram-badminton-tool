@@ -1,5 +1,5 @@
 import { httpRequest } from './request'
-import { RaceInfo, RaceFormData, MyAwesomeData, RaceBattle, RaceRank, Referee } from '../model'
+import { RaceInfo, RaceFormData, MyAwesomeData,PageResult, RaceBattle, RaceRank, Referee } from '../model'
 
 const baseUrl = require('./env').allBaseUrl.GDEnvs.host
 
@@ -189,10 +189,10 @@ export default class raceApi {
    * 比赛历史
    * @param playerId 选手id
    */
-  static getRaceHistory = (playerId:number): Promise<MyAwesomeData<Array<RaceBattle>>> => {
+  static getRaceHistory = (playerId:number,pageNo:number,pageLimit:number): Promise<MyAwesomeData<PageResult<RaceBattle>>> => {
     const token = wx.getStorageSync("localToken")
-    return httpRequest.get<Array<RaceBattle>>(
-      baseUrl + `/raceInfo/raceHistory?playerId=${playerId}`,
+    return httpRequest.get<PageResult<RaceBattle>>(
+      baseUrl + `/raceInfo/raceHistory?playerId=${playerId}&pageNo=${pageNo}&pageLimit=${pageLimit}`,
       {},
       { header: { ["Authorization"]: token } }
     )

@@ -8,7 +8,7 @@ const raceBattleStoreBehavior = BehaviorWithStore({
   storeBindings: {
     store: raceBattleStore,
     fields: { raceBattles: "raceBattles" },
-    actions: { setRaceBattles: "setRaceBattles",updateRaceBattle:"updateRaceBattle" }
+    actions: { setRaceBattles: "setRaceBattles", updateRaceBattle: "updateRaceBattle" }
   },
   pageLifetimes: {
     show: function () {
@@ -44,28 +44,28 @@ Page({
     })
     // const userInfo = wx.getStorageSync("userInfo");
 
-    if(battle.battleState == 1){
+    if (battle.battleState == 1) {
       // 不能修改比分（需等待完成后可修改比分）
       this.setData({
         recordEnable: false
       })
-    
+
     }
 
   },
-  tapScorePlus(){
+  tapScorePlus() {
     let arr = this.data.scoreArr
-    const tempVal = arr[arr.length-1]+1;
+    const tempVal = arr[arr.length - 1] + 1;
     // console.log("tempVal",tempVal)
     arr.push(tempVal)
     this.setData({
-      scoreArr:arr
+      scoreArr: arr
     })
   },
-  tapScoreMinus(){
-    let arr = this.data.scoreArr.slice(0,this.data.scoreArr.length-1)
+  tapScoreMinus() {
+    let arr = this.data.scoreArr.slice(0, this.data.scoreArr.length - 1)
     this.setData({
-      scoreArr:arr
+      scoreArr: arr
     })
   },
   onRecordPickerChange(event: WechatMiniprogram.TouchEvent) {
@@ -75,11 +75,13 @@ Page({
     })
   },
   tapRecordScore() {
-    
-    // setTimeout(()=>{
+
+    setTimeout(()=>{
     // 微信滚动太快 value取不到值为0
-    // 当前解决方式：使用bindstart与bindend事件进行判断，若未触发end事件提示未完成选择，但是用户体验不好；
-    // },1200)
+    // 解决方式1：使用bindstart与bindend事件进行判断，若未触发end事件提示未完成选择，但是用户体验不好；
+    // 解决方式2：延时
+      console.log("延时1秒")
+    },1000)
 
     const userInfo = wx.getStorageSync("userInfo");
     let param = {
@@ -90,9 +92,9 @@ Page({
     }
     $api.raceApi.editBattleScore(param)
 
-    raceBattleStore.updateRaceBattle(param.bid,param.score1,param.score2)
+    // raceBattleStore.updateRaceBattle(param.bid, param.score1, param.score2)
     wx.navigateBack({
-      delta:1
+      delta: 1
     })
   }
 })
