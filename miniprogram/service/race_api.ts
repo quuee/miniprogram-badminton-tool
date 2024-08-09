@@ -8,10 +8,10 @@ export default class raceApi {
    * @description: 获取比赛列表信息
    * @return {*}
    */
-  static getRaceList = (): Promise<MyAwesomeData<Array<RaceInfo>>> => {
+  static getRaceList = (pageNo:number,pageLimit:number): Promise<MyAwesomeData<PageResult<RaceInfo>>> => {
     const token = wx.getStorageSync("localToken")
-    return httpRequest.get<Array<RaceInfo>>(
-      baseUrl + '/raceIndex/raceList',
+    return httpRequest.get<PageResult<RaceInfo>>(
+      baseUrl + `/raceIndex/raceList?pageNo=${pageNo}&pageLimit=${pageLimit}`,
       {},
       { header: { ["Authorization"]: token } }
     )

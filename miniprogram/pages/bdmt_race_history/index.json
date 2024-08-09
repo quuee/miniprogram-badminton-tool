@@ -1,5 +1,7 @@
 {
-  "usingComponents": {},
+  "usingComponents": {
+    "avatar-circle":"/components/avatar-circle/avatar-circle"
+  },
   "navigationBarTitleText": "历史战绩",
   "navigationBarBackgroundColor":"#fff",
   "navigationBarTextStyle":"black"

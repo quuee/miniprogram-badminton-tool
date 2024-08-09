@@ -2,7 +2,7 @@
 <view>
   <van-tabs swipeable sticky active="{{ activeIndex }}" bind:change="onTabChange">
 
-    <scroll-view scroll-y refresher-enabled="{{canRefresherEnable}}" show-scrollbar="{{false}}" bindrefresherrefresh="getRaceList"	 refresher-triggered="{{triggered}}" bind:scroll="onScroll" class="scroll-view-box">
+    <scroll-view scroll-y refresher-enabled="{{canRefresherEnable}}" show-scrollbar="{{false}}" bindrefresherrefresh="refresh"	 refresher-triggered="{{triggered}}" bind:scroll="onScroll" bindscrolltolower="loadMore" class="scroll-view-box">
     
       <block wx:for="{{tabList}}" wx:for-item="tabItem" wx:key="tabItem">
         <van-tab title="{{tabItem.tabName}}">

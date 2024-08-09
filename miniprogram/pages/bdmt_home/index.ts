@@ -15,12 +15,24 @@ Page({
     raceList: [] as RaceInfo[],
     triggered: false,
     canRefresherEnable: true,
+    page: 1,
+    loadMoreFlag: true,
+    // deviceWindowHeight: 600
   },
   onLoad() {
     checkHasLogined().then((isLogin: boolean) => {
       console.log("home isLogin", isLogin)
       if (isLogin) {
         this.getRaceList()
+        // let that = this;
+        wx.getSystemInfo({
+          success: function (res) {
+            console.log("res.windowHeight", res.windowHeight)
+            // that.setData({
+            //   deviceWindowHeight: res.windowHeight - 100 // 减去触底的高度
+            // })
+          }
+        })
       }
     })
   },
@@ -35,21 +47,35 @@ Page({
   },
 
   async getRaceList() {
-    this.setData({
-      triggered: true
-    })
-    const res = await $api.raceApi.getRaceList();
+    const res = await $api.raceApi.getRaceList(this.data.page, 5);
     if (res.code === 0) {
+      let loadMoreFlagState = true;
+      if (res.data.records.length < 5) {
+        loadMoreFlagState = false;
+      }
       this.setData({
-        raceList: [...res.data]
+        loadMoreFlag: loadMoreFlagState,
+        raceList: this.data.raceList.concat(res.data.records),
+        page: ++this.data.page
       })
     }
+
+  },
+  refresh() {
+    this.setData({
+      triggered: true,
+      raceList: [],
+      loadMoreFlag: true,
+      page: 1,
+    })
+    this.getRaceList()
     this.setData({
       triggered: false
     })
   },
+
   onScroll(event: WechatMiniprogram.TouchEvent) {
-    console.log(event.detail.scrollTop)
+    // console.log(event.detail.scrollTop)
     if (event.detail.scrollTop <= 45) {
       this.setData({
         canRefresherEnable: true
@@ -60,4 +86,11 @@ Page({
       })
     }
   },
+  loadMore() {
+    console.log("loadMore")
+    console.log("loadMoreFlag",this.data.loadMoreFlag)
+    if (this.data.loadMoreFlag) {
+      this.getRaceList()
+    }
+  }
 })

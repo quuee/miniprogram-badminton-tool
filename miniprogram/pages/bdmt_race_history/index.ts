@@ -8,7 +8,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    raceBattles: [] as RaceBattle[],
     triggered: false,
     canRefresherEnable: true,
     tempBattles: [] as RaceBattle[],
@@ -37,12 +36,13 @@ Page({
       .then((res) => {
         if (res.code == 0) {
           let loadMoreFlagState = true;
-          if (res.data.total < 10) {
+          if (res.data.records.length < 10) {
             loadMoreFlagState = false;
           }
           this.setData({
             tempBattles: this.data.tempBattles.concat(res.data.records),
-            loadMoreFlag: loadMoreFlagState
+            loadMoreFlag: loadMoreFlagState,
+            page:++this.data.page
           })
         }
       })
