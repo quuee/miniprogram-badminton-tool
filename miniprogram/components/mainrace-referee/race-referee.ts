@@ -46,7 +46,7 @@ Component({
    */
   methods: {
     load() {
-      $api.raceApi.getRaceReferee(this.properties.raceId)
+      $api.raceRefereeApi.getRaceReferee(this.properties.raceId)
         .then((res) => {
           if (res.code == 0) {
             // console.log("getRaceTrials",res.data)
@@ -88,7 +88,7 @@ Component({
         raceId: this.properties.raceId,
         refereeId: refereeId
       }
-      const res = await $api.raceApi.deleteReferee(param)
+      const res = await $api.raceRefereeApi.deleteReferee(param)
       if (res.code == 0) {
         const filterArr = raceRefereeStore.raceReferees.filter((p) => {
           if (p.uid == refereeId) {

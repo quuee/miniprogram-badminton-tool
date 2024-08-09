@@ -43,7 +43,7 @@ Component({
    */
   methods: {
     load() {
-      $api.raceApi.getRaceRanks(this.properties.raceId)
+      $api.raceRankApi.getRaceRanks(this.properties.raceId)
         .then((res) => {
           if (res.code == 0) {
             raceRankStore.setRaceRanks(res.data)

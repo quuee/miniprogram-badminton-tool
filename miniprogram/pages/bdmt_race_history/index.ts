@@ -32,7 +32,7 @@ Page({
   },
   load() {
     let userInfo = wx.getStorageSync("userInfo");
-    $api.raceApi.getRaceHistory(userInfo.uid, this.data.page, 10)
+    $api.raceBattleApi.getRaceHistory(userInfo.uid, this.data.page, 10)
       .then((res) => {
         if (res.code == 0) {
           let loadMoreFlagState = true;

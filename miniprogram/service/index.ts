@@ -9,6 +9,9 @@
 import userApi from './user_api'
 import raceApi from './race_api'
 import raceSchemeApi from './race_scheme_api'
+import raceBattleApi from './race_battle_api'
+import raceRefereeApi from './race_referee_api'
+import raceRankApi from './race_rank_api'
 
 class apis {
   /**
@@ -17,6 +20,9 @@ class apis {
   static userApi = userApi
   static raceApi = raceApi
   static raceSchemeApi = raceSchemeApi
+  static raceBattleApi = raceBattleApi
+  static raceRefereeApi = raceRefereeApi
+  static raceRankApi = raceRankApi
 }
 
 export default apis

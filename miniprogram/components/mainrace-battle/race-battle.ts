@@ -81,7 +81,7 @@ Component({
    */
   methods: {
     load() {
-      $api.raceApi.getRaceBattles(this.properties.raceId)
+      $api.raceBattleApi.getRaceBattles(this.properties.raceId)
         .then((res) => {
           if (res.code == 0) {
             raceBattleStore.setRaceBattles(res.data)
@@ -91,7 +91,7 @@ Component({
           }
         })
 
-      $api.raceApi.getRaceReferee(this.properties.raceId)
+      $api.raceRefereeApi.getRaceReferee(this.properties.raceId)
         .then((res) => {
           if (res.code == 0) {
             // console.log("getRaceTrials",res.data)
@@ -126,7 +126,7 @@ Component({
           .then(() => {
             // on confirm
             // 跳转到裁判tab
-            $api.raceApi.applyReferee({ raceId: battleModel.raceId, uid: userInfo.uid })
+            $api.raceRefereeApi.applyReferee({ raceId: battleModel.raceId, uid: userInfo.uid })
               .then((res) => {
                 if (res.code == 0) {
                   raceRefereeStore.setRaceReferees(res.data)
