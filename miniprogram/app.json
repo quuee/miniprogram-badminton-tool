@@ -8,8 +8,8 @@
     "pages/bdmt_race_applicants/index",
     "pages/bdmt_race_battle_record/index",
     "pages/bdmt_race_history/index",
-
-    "pages/index/index",
+    "pages/profile/index",
+    
     "pages/logs/logs"
   ],
   "entryPagePath": "pages/bdmt_home/index",

@@ -70,7 +70,7 @@ Page({
   },
   toEditUserInfo(){
     wx.navigateTo({
-      url:"/pages/index/index"
+      url:"/pages/profile/index"
     })
   },
   toRaceHistory(){

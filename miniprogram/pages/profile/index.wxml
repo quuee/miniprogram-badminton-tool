@@ -17,9 +17,9 @@
     <view class="row">
       <view class="text1">性别：</view>
       <radio-group bindchange="onGenderChange">
-      <radio color="red" value="male"> 男</radio>
-      <radio color="red" value="female"> 女</radio>
-    </radio-group>
+        <radio color="red" value="1" checked="{{userINfo.gender == 1}}"> 男</radio>
+        <radio color="red" value="2" checked="{{userINfo.gender == 2}}"> 女</radio>
+      </radio-group>
 
     </view>
   </view>
